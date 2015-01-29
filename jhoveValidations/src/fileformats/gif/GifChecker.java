@@ -3,14 +3,24 @@ package fileformats.gif;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
+
+import edu.harvard.hul.ois.jhove.App;
+import edu.harvard.hul.ois.jhove.JhoveBase;
+import edu.harvard.hul.ois.jhove.Module;
+import edu.harvard.hul.ois.jhove.OutputHandler;
+import edu.harvard.hul.ois.jhove.handler.XmlHandler;
+import edu.harvard.hul.ois.jhove.module.GifModule;
 
 public class GifChecker {
 
 	public static String giffolder;
-
-	// TODO: This will error on Travis as the JHOVE Library is not in the maven
-	// repository and had to be added externally
+	static App gifjhoveapp;
+	static JhoveBase jhoveBaseGif;
+	static Module gifmodule;
+	static OutputHandler handler;
+	public static String folder;
 
 	public static void main(String args[]) throws Exception {
 		// test
@@ -23,7 +33,7 @@ public class GifChecker {
 			if (giffolder != null) {
 				ArrayList<File> files = validatorUtilities.ListsFiles.getPaths(new File(giffolder), new ArrayList<File>());
 				outputs.GifXmlOutput.createXmlGifOutput();
-				validator.JhoveValidator.createJhoveChecker();
+				createJhoveChecker();
 				/*
 				 * TODO: This is a nice way to print every file in the folder in
 				 * hex files, but there is always missing so much at the end
@@ -45,7 +55,7 @@ public class GifChecker {
 						if (validatorUtilities.GenericFileAnalysis.testFileHeaderGif(files.get(i).toString()) == false) {
 							JOptionPane.showMessageDialog(null, (files.get(i).toString()), "gif-Extension has no correct Gif Header", JOptionPane.QUESTION_MESSAGE);
 						}
-						validator.JhoveValidator.checkGifWithJhove(files.get(i));
+						checkGifWithJhove(files.get(i));
 
 						// gifisvalid anders als mit Jhove testen und gifisvalid
 						// auf true setzen, jetzt sind alle false
@@ -79,5 +89,52 @@ public class GifChecker {
 		} else {
 			return false;
 		}
+	}
+
+	public void init(String init) throws Exception {
+
+	}
+
+	public void reset() {
+	}
+
+	public static void checkGifWithJhove(File giffile) throws Exception {
+		outputs.GifXmlOutput.xmlgifwriter.println("<item>");
+		if (giffile.toString().contains("&")) {
+			String substitute = validatorUtilities.genericUtilities.normaliseToUtf8(giffile.toString());
+			outputs.GifXmlOutput.xmlgifwriter.println("<filename>" + substitute + "</filename>");
+		} else {
+			outputs.GifXmlOutput.xmlgifwriter.println("<filename>" + giffile.toString() + "</filename>");
+		}
+		jhoveBaseGif.process(gifjhoveapp, gifmodule, handler, giffile.toString());
+		outputs.GifXmlOutput.xmlgifwriter.println("</item>");
+	}
+
+	public static void createJhoveChecker() throws Exception {
+		jhoveBaseGif = new JhoveBase();
+
+		String configFilePath = JhoveBase.getConfigFileFromProperties();
+		jhoveBaseGif.init(configFilePath, null);
+
+		jhoveBaseGif.setEncoding("UTF-8");
+		jhoveBaseGif.setBufferSize(131072);
+		jhoveBaseGif.setChecksumFlag(false);
+		jhoveBaseGif.setShowRawFlag(false);
+		jhoveBaseGif.setSignatureFlag(false);
+
+		String appName = "Customized JHOVE";
+		String version = "1.0";
+		int[] date = { 2014, 12, 03 };
+		String usage = "Call JHOVE via own Java";
+		String rights = "Copyright nestor Format Working Group";
+		gifjhoveapp = new App(appName, version, date, usage, rights);
+
+		gifmodule = new GifModule(); // JHOVE GifModule only
+		handler = new XmlHandler();
+
+		handler.setWriter(outputs.GifXmlOutput.xmlgifwriter);
+		handler.setBase(jhoveBaseGif);
+		gifmodule.init("");
+		gifmodule.setDefaultParams(new ArrayList<String>());
 	}
 }

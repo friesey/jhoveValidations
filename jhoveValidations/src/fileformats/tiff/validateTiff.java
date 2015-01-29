@@ -1,4 +1,4 @@
-package validator;
+package fileformats.tiff;
 
 import java.awt.BorderLayout;
 import java.io.File;
@@ -15,11 +15,10 @@ import edu.harvard.hul.ois.jhove.JhoveBase;
 import edu.harvard.hul.ois.jhove.Module;
 import edu.harvard.hul.ois.jhove.OutputHandler;
 import edu.harvard.hul.ois.jhove.handler.XmlHandler;
-import edu.harvard.hul.ois.jhove.module.GifModule;
 import edu.harvard.hul.ois.jhove.module.TiffModule;
 
-
-public class JhoveValidator {
+public class validateTiff {
+	
 	static App gifjhoveapp;
 	static JhoveBase jhoveBaseGif;
 	static Module gifmodule;
@@ -29,8 +28,7 @@ public class JhoveValidator {
 	public static void JhoveTiffValidator() {		
 		String pathwriter;
 		try {
-			JOptionPane.showMessageDialog(null, "Please choose a Folder with Tiff files", "JHOVE Tiff-Examination", JOptionPane.QUESTION_MESSAGE);
-			folder = validatorUtilities.BrowserDialogs.chooseFolder();
+			folder = starterDialogs.JhoveGuiStarterDialog.jhoveExaminationFolder;
 			if (folder != null) {
 				
 				JFrame f = new JFrame();
@@ -101,58 +99,6 @@ public class JhoveValidator {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e, "error message", JOptionPane.ERROR_MESSAGE);
 
-		}
-		
-	}
-
-
-
-	 public void init(String init) throws Exception {
-
-	}
-
-	public void reset() {
-	}
-
-	public static void checkGifWithJhove(File giffile) throws Exception {
-		outputs.GifXmlOutput.xmlgifwriter.println("<item>");
-		if (giffile.toString().contains("&")) {
-			String substitute = validatorUtilities.genericUtilities.normaliseToUtf8(giffile.toString());
-			outputs.GifXmlOutput.xmlgifwriter.println("<filename>" + substitute + "</filename>");
-		} else {
-			outputs.GifXmlOutput.xmlgifwriter.println("<filename>" + giffile.toString() + "</filename>");
-		}
-		JhoveValidator.jhoveBaseGif.process(JhoveValidator.gifjhoveapp, JhoveValidator.gifmodule, JhoveValidator.handler, giffile.toString());
-		outputs.GifXmlOutput.xmlgifwriter.println("</item>");
-	}	
-	
-
-	public static void createJhoveChecker() throws Exception {
-		JhoveValidator.jhoveBaseGif = new JhoveBase();
-
-		String configFilePath = JhoveBase.getConfigFileFromProperties();
-		JhoveValidator.jhoveBaseGif.init(configFilePath, null);
-
-		JhoveValidator.jhoveBaseGif.setEncoding("UTF-8");
-		JhoveValidator.jhoveBaseGif.setBufferSize(131072);
-		JhoveValidator.jhoveBaseGif.setChecksumFlag(false);
-		JhoveValidator.jhoveBaseGif.setShowRawFlag(false);
-		JhoveValidator.jhoveBaseGif.setSignatureFlag(false);
-
-		String appName = "Customized JHOVE";
-		String version = "1.0";
-		int[] date = { 2014, 12, 03 };
-		String usage = "Call JHOVE via own Java";
-		String rights = "Copyright nestor Format Working Group";
-		JhoveValidator.gifjhoveapp = new App(appName, version, date, usage, rights);
-
-		JhoveValidator.gifmodule = new GifModule(); // JHOVE GifModule only
-		JhoveValidator.handler = new XmlHandler();
-
-		JhoveValidator.handler.setWriter(outputs.GifXmlOutput.xmlgifwriter);
-		JhoveValidator.handler.setBase(JhoveValidator.jhoveBaseGif);
-		JhoveValidator.gifmodule.init("");
-		JhoveValidator.gifmodule.setDefaultParams(new ArrayList<String>());
-
+		}		
 	}
 }

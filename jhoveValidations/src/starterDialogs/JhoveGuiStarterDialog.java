@@ -34,7 +34,7 @@ public class JhoveGuiStarterDialog {
 			// TODO: develop xml validator
 			break;
 		case 3:	
-			validator.JhoveValidator.JhoveTiffValidator();
+			fileformats.tiff.validateTiff.JhoveTiffValidator();
 			break;
 		case 4:
 			// TODO: develop all the other JHOVE modules if necessary

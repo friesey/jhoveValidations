@@ -26,9 +26,8 @@ public class validatePdf {
 
 		String pathwriter;
 
-		try {
-			JOptionPane.showMessageDialog(null, "Please choose a Folder with PDF files", "JHOVE PDF-Examination", JOptionPane.QUESTION_MESSAGE);
-			folder = validatorUtilities.BrowserDialogs.chooseFolder();
+		try {		
+			folder = starterDialogs.JhoveGuiStarterDialog.jhoveExaminationFolder;
 			if (folder != null) {
 				
 				JFrame f = new JFrame();

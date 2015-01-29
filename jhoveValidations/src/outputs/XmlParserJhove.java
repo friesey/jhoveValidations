@@ -31,7 +31,7 @@ public class XmlParserJhove {
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(xmlfile);
 
-			PrintWriter xmlsummary = new PrintWriter(new FileWriter((fileformats.pdf.validatePdf.folder + "//" + "JhoveExaminationSummary" + ".xml")));		
+			PrintWriter xmlsummary = new PrintWriter(new FileWriter((starterDialogs.JhoveGuiStarterDialog.jhoveExaminationFolder  + "//" + "JhoveExaminationSummary" + ".xml")));		
 
 			String xmlVersion = "xml version='1.0'";
 			String xmlEncoding = "encoding='ISO-8859-1'";

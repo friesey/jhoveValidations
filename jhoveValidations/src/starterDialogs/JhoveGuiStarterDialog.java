@@ -6,6 +6,8 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 public class JhoveGuiStarterDialog {
+	
+	public static String jhoveExaminationFolder;
 
 	public static void main(String args[]) throws Exception {
 		changecolor();
@@ -16,12 +18,16 @@ public class JhoveGuiStarterDialog {
 		Object[] options = { "PDF", "GIF", "XML", "TIFF" };
 		int inteingabe = JOptionPane.showOptionDialog(null, "Which file format do you want to validate?", "Jhove Validation", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, icon, options, options[1]);
 
+		JOptionPane.showMessageDialog(null, "Please choose the folder with files to validate.", "JHOVE Examination", JOptionPane.QUESTION_MESSAGE);
+		 jhoveExaminationFolder = validatorUtilities.BrowserDialogs.chooseFolder();
+				
 		switch (inteingabe) {
 		case 0:		
 			fileformats.pdf.validatePdf.JhovePdfValidator();
 			break;
 		case 1:		
-			validator.JhoveValidator.JhoveGifValidator();
+			fileformats.gif.validateGif.JhoveGifValidator();
+			//TODO: XSLT Summary has to be developed further
 			break;
 		case 2:
 			JOptionPane.showMessageDialog(null, "JHOVE will be used to validate XML files from a chosen folder", "XML Validation", JOptionPane.INFORMATION_MESSAGE);

@@ -8,7 +8,7 @@ public class XslStyleSheets {
 
 	public static void JhoveCustomizedXsl() throws IOException {
 
-		PrintWriter xslStyle = new PrintWriter(new FileWriter(fileformats.pdf.validatePdf.folder + "//" + "JhoveCustomized.xsl"));
+		PrintWriter xslStyle = new PrintWriter(new FileWriter(starterDialogs.JhoveGuiStarterDialog.jhoveExaminationFolder + "//" + "JhoveCustomized.xsl"));
 
 		xslStyle.println("<?xml version=\"1.0\"?>");
 		xslStyle.println("<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">");
@@ -94,12 +94,9 @@ public class XslStyleSheets {
 	}
 
 	public static void GifJhoveCustomizedXsl() throws IOException {
-
-		PrintWriter xslStyle = new PrintWriter(new FileWriter("D:\\GifJhoveCustomized.xsl"));// TODO:
-																								// has
-																								// to
-																								// be
-																								// cumstomized
+		
+		PrintWriter xslStyle = new PrintWriter(new FileWriter(starterDialogs.JhoveGuiStarterDialog.jhoveExaminationFolder + "//" + "GifJhoveCustomized.xsl"));		
+				
 		xslStyle.println("<?xml version=\"1.0\"?>");
 		xslStyle.println("<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">");
 		xslStyle.println("<xsl:template match=\"JhoveFindingsSummary\">");

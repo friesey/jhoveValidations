@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
-import org.apache.commons.io.FilenameUtils;
+import java.util.regex.Pattern;
 
 public class JhoveStatistics {
 
@@ -36,11 +36,18 @@ public class JhoveStatistics {
 
 	public static void JhoveOutputAnalysis(String jhoveFindings) throws IOException {
 		FileInputStream inputStream = new FileInputStream(jhoveFindings);
-		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-
-		String name = FilenameUtils.getFullPathNoEndSeparator(jhoveFindings);
+		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));		
+		
+		//get parent folder of the examined file
+		StringBuilder stringBuilder = new StringBuilder();
+		String[] parts = jhoveFindings.split(Pattern.quote("\\"));
+		for (int i = 0; i < parts.length - 1; i++) {
+			stringBuilder.append(parts[i]);
+			stringBuilder.append("//");
+		}
+		String name = stringBuilder.toString();
 	
-		PrintWriter output = new PrintWriter(new FileWriter(name + "Statistics.txt"));
+		PrintWriter output = new PrintWriter(new FileWriter(name + "//" + "Statistics.txt"));
 
 		String line = null;
 

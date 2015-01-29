@@ -1,4 +1,4 @@
-package fileformats.tiff;
+package fileformats.gif;
 
 import java.awt.BorderLayout;
 import java.io.File;
@@ -15,28 +15,30 @@ import edu.harvard.hul.ois.jhove.JhoveBase;
 import edu.harvard.hul.ois.jhove.Module;
 import edu.harvard.hul.ois.jhove.OutputHandler;
 import edu.harvard.hul.ois.jhove.handler.XmlHandler;
-import edu.harvard.hul.ois.jhove.module.TiffModule;
+import edu.harvard.hul.ois.jhove.module.GifModule;
 
-public class validateTiff {
-	
+public class ValidateGif {
+
 	static App gifjhoveapp;
 	static JhoveBase jhoveBaseGif;
 	static Module gifmodule;
-	static OutputHandler handler; 
-	public static String folder;		
+	static OutputHandler handler;
+	public static String folder;
 
-	public static void JhoveTiffValidator() {		
+	public static void JhoveGifValidator() {
+
 		String pathwriter;
+
 		try {
 			folder = starterDialogs.JhoveGuiStarterDialog.jhoveExaminationFolder;
 			if (folder != null) {
-				
+
 				JFrame f = new JFrame();
-				JButton but = new JButton("... Program is running ... ");
+				JButton but = new JButton("Processing: ");
 				f.add(but, BorderLayout.PAGE_END);
 				f.pack();
 				f.setVisible(true);
-				
+
 				JhoveBase jb = new JhoveBase();
 
 				String configFilePath = JhoveBase.getConfigFileFromProperties();
@@ -51,13 +53,13 @@ public class validateTiff {
 
 				String appName = "Customized JHOVE";
 				String version = "1.0";
-				
+
 				int[] date = validatorUtilities.genericUtilities.getDate();
 				String usage = "Call JHOVE via own Java";
 				String rights = "Copyright nestor Format Working Group";
 				App app = new App(appName, version, date, usage, rights);
 
-				Module module = new TiffModule();
+				Module module = new GifModule();
 
 				OutputHandler handler = new XmlHandler();
 				ArrayList<File> files = validatorUtilities.ListsFiles.getPaths(new File(folder), new ArrayList<File>());
@@ -78,8 +80,9 @@ public class validateTiff {
 
 				// To handle one file after the other
 				for (int i = 0; i < files.size(); i++) {
-					if (validatorUtilities.GenericFileAnalysis.testFileHeaderTiff(files.get(i)) == true) {
-						writer.println("<item>");
+					if (validatorUtilities.GenericFileAnalysis.testFileHeaderGif(files.get(i).toString()) == true) {
+						writer.println("<item>");					
+
 						if (files.get(i).toString().contains("&")) {
 							String substitute = validatorUtilities.genericUtilities.normaliseToUtf8(files.get(i).toString());
 							writer.println("<filename>" + substitute + "</filename>");
@@ -93,12 +96,13 @@ public class validateTiff {
 				writer.println("</JhoveFindings>");
 				writer.close();
 				outputs.XmlParserJhove.parseXmlFile(pathwriter);
-				
+
 				f.dispose();
 			}
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e, "error message", JOptionPane.ERROR_MESSAGE);
 
-		}		
+		}
 	}
+
 }

@@ -7,9 +7,9 @@ public class genericUtilities {
 
 		String[] parts = date.split(" ");
 
-		for (int i = 0; i < parts.length; i++) {
+/*		for (int i = 0; i < parts.length; i++) {
 			System.out.println(i + " " + parts[i]);
-		}
+		}*/
 
 		int year = Integer.parseInt(parts[5]);
 		int day = Integer.parseInt(parts[2]);
@@ -46,10 +46,8 @@ public class genericUtilities {
 
 		int[] dateInt = { year, month, day };
 
-		for (int j = 0; j < dateInt.length; j++) {
-			System.out.println(dateInt[j]);
-		}
-		
+/*		for (int j = 0; j < dateInt.length; j++) {		
+		}	*/	
 		return dateInt;
 	}
 	

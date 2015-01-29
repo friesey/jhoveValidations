@@ -1,4 +1,4 @@
-package fileformats.pdf;
+package fileformats.xml;
 
 import java.awt.BorderLayout;
 import java.io.File;
@@ -15,27 +15,30 @@ import edu.harvard.hul.ois.jhove.JhoveBase;
 import edu.harvard.hul.ois.jhove.Module;
 import edu.harvard.hul.ois.jhove.OutputHandler;
 import edu.harvard.hul.ois.jhove.handler.XmlHandler;
-import edu.harvard.hul.ois.jhove.module.PdfModule;
+import edu.harvard.hul.ois.jhove.module.XmlModule;
 
-public class validatePdf {	
+public class ValidateXml {
 
-	static OutputHandler handler; 
+	static App jhoveapp;
+	static JhoveBase jhoveBase;
+	static Module jpeg2000module;
+	static OutputHandler handler;
 	public static String folder;
 
-	 public static void JhovePdfValidator() {
+	public static void JhoveXmlValidator() {
 
 		String pathwriter;
 
-		try {		
+		try {
 			folder = starterDialogs.JhoveGuiStarterDialog.jhoveExaminationFolder;
 			if (folder != null) {
-				
+
 				JFrame f = new JFrame();
 				JButton but = new JButton("... Program is running ... ");
 				f.add(but, BorderLayout.PAGE_END);
 				f.pack();
 				f.setVisible(true);
-				
+
 				JhoveBase jb = new JhoveBase();
 
 				String configFilePath = JhoveBase.getConfigFileFromProperties();
@@ -50,13 +53,13 @@ public class validatePdf {
 
 				String appName = "Customized JHOVE";
 				String version = "1.0";
-				
+
 				int[] date = validatorUtilities.genericUtilities.getDate();
 				String usage = "Call JHOVE via own Java";
 				String rights = "Copyright nestor Format Working Group";
 				App app = new App(appName, version, date, usage, rights);
 
-				Module module = new PdfModule(); // JHOVE PdfModule only
+				Module module = new XmlModule();
 
 				OutputHandler handler = new XmlHandler();
 				ArrayList<File> files = validatorUtilities.ListsFiles.getPaths(new File(folder), new ArrayList<File>());
@@ -77,7 +80,7 @@ public class validatePdf {
 
 				// To handle one file after the other
 				for (int i = 0; i < files.size(); i++) {
-					if (validatorUtilities.GenericFileAnalysis.testFileHeaderPdf(files.get(i)) == true) { //tests only PDF with Header %PDF
+					if (validatorUtilities.GenericFileAnalysis.testFileHeaderXml(files.get(i)) == true) {
 						writer.println("<item>");
 						if (files.get(i).toString().contains("&")) {
 							String substitute = validatorUtilities.genericUtilities.normaliseToUtf8(files.get(i).toString());
@@ -92,7 +95,7 @@ public class validatePdf {
 				writer.println("</JhoveFindings>");
 				writer.close();
 				outputs.XmlParserJhove.parseXmlFile(pathwriter);
-				
+
 				f.dispose();
 			}
 		} catch (Exception e) {
@@ -100,6 +103,5 @@ public class validatePdf {
 
 		}
 	}
-	
-
 }
+

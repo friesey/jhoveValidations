@@ -2,6 +2,7 @@ package validatorUtilities;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,6 +19,8 @@ public class GenericFileAnalysis {
 	static String magicNumberTiffMotorola = "MM";
 	static String magicNumberGif87 = "GIF87a";
 	static String magicNumberGif89 = "GIF89a";
+	static String magicNumberJpeg = "JFIF";
+	static String magicNumberXml = "<?xml version="; //TODO: check if ok
 
 	private static final long DEFAULT_MAX_FILE_LENGTH = 1024 * 1024 * 16;
 	
@@ -244,4 +247,42 @@ public class GenericFileAnalysis {
 			return false;
 		}
 	}
+
+
+	public static boolean testFileHeaderJpeg(File file) throws IOException {
+		fileReader = new BufferedReader(new FileReader(file));
+		String FileHeader = fileReader.readLine();	
+			if (FileHeader != null) {
+			if (FileHeader.contains(magicNumberJpeg)) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+
+
+	public static boolean testFileHeaderJpeg2000(String string) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+
+
+	public static boolean testFileHeaderXml(File file) throws IOException {
+		fileReader = new BufferedReader(new FileReader(file));
+		String FileHeader = fileReader.readLine();	
+			if (FileHeader != null) {
+			if (FileHeader.contains(magicNumberXml)) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+
 }

@@ -1,4 +1,4 @@
-package fileformats.gif;
+package fileformats.jpeg;
 
 import java.awt.BorderLayout;
 import java.io.File;
@@ -15,17 +15,17 @@ import edu.harvard.hul.ois.jhove.JhoveBase;
 import edu.harvard.hul.ois.jhove.Module;
 import edu.harvard.hul.ois.jhove.OutputHandler;
 import edu.harvard.hul.ois.jhove.handler.XmlHandler;
-import edu.harvard.hul.ois.jhove.module.GifModule;
+import edu.harvard.hul.ois.jhove.module.JpegModule;
 
-public class validateGif {
+public class ValidateJpeg {
 	
-	static App gifjhoveapp;
-	static JhoveBase jhoveBaseGif;
-	static Module gifmodule;
+	static App jhoveapp;
+	static JhoveBase jhoveBase;
+	static Module jpegmodule;
 	static OutputHandler handler; 
 	public static String folder;
 		
-	public static void JhoveGifValidator() {
+	public static void JhoveJpegValidator() {
 		
 		String pathwriter;
 
@@ -59,7 +59,7 @@ public class validateGif {
 				String rights = "Copyright nestor Format Working Group";
 				App app = new App(appName, version, date, usage, rights);
 
-				Module module = new GifModule();
+				Module module = new JpegModule();
 
 				OutputHandler handler = new XmlHandler();
 				ArrayList<File> files = validatorUtilities.ListsFiles.getPaths(new File(folder), new ArrayList<File>());
@@ -80,7 +80,7 @@ public class validateGif {
 
 				// To handle one file after the other
 				for (int i = 0; i < files.size(); i++) {
-				if (validatorUtilities.GenericFileAnalysis.testFileHeaderGif(files.get(i).toString()) == true) {
+				if (validatorUtilities.GenericFileAnalysis.testFileHeaderJpeg(files.get(i)) == true) {
 						writer.println("<item>");
 						if (files.get(i).toString().contains("&")) {
 							String substitute = validatorUtilities.genericUtilities.normaliseToUtf8(files.get(i).toString());
@@ -105,3 +105,4 @@ public class validateGif {
 	} 
 
 }
+

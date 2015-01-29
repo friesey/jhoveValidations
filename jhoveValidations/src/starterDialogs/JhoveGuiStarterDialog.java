@@ -1,6 +1,5 @@
 package starterDialogs;
 
-
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -24,15 +23,15 @@ public class JhoveGuiStarterDialog {
 			int inteingabe = JOptionPane.showOptionDialog(null, "Which file format do you want to validate?", "Jhove Validation", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
 			if (inteingabe == 0) {
 				JOptionPane.showMessageDialog(null, "JHOVE will be used to validate PDF files from a chosen folder", "PDF Validation", JOptionPane.INFORMATION_MESSAGE);
-				externalToolAnalysis.JhoveValidator.JhovePdfValidator();
+				validator.JhoveValidator.JhovePdfValidator();
 			} else if (inteingabe == 1) {
 				JOptionPane.showMessageDialog(null, "JHOVE will be used to validate GIF files from a chosen folder", "GIF Validation", JOptionPane.PLAIN_MESSAGE);
-				externalToolAnalysis.JhoveValidator.JhoveGifValidator();
+				validator.JhoveValidator.JhoveGifValidator();
 			} else if (inteingabe == 2) {
 				JOptionPane.showMessageDialog(null, "JHOVE will be used to validate XML files from a chosen folder", "XML Validation", JOptionPane.INFORMATION_MESSAGE);
 			} else if (inteingabe == 3) {
 				JOptionPane.showMessageDialog(null, "JHOVE will be used to validate TIFF files from a chosen folder", "TIFF Validation", JOptionPane.INFORMATION_MESSAGE);
-				externalToolAnalysis.JhoveValidator.JhoveTiffValidator();
+				validator.JhoveValidator.JhoveTiffValidator();
 			} else {
 				JOptionPane.showMessageDialog(null, "Nothing will be done. Please choose properly.", "Misbehaviour", JOptionPane.WARNING_MESSAGE);
 			}

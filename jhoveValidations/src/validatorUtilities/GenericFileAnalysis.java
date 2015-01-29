@@ -8,11 +8,9 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
-import org.apache.commons.io.FilenameUtils;
-
 public class GenericFileAnalysis {
 
-	// TODO: If I do not know yet which file it is, just a generic analyse
+	// TODO: If I do not know yet which file it is, just a generic analysis
 
 	static BufferedReader fileReader;
 	static String magicNumberPdf = "%PDF";
@@ -214,24 +212,10 @@ public class GenericFileAnalysis {
 	}
 
 	public static String getCdRomFolderName(String examinedCdRom) {
-
 		String[] segs = examinedCdRom.split(Pattern.quote("\\"));
-
-		return segs[segs.length - 1];
-
-	}
-
-	public static String getFileExtension(File file) {
-
-		String[] segs = file.toString().split(Pattern.quote("."));
-
 		return segs[segs.length - 1];
 	}
 
-	public static String getFileName(File file) {
-		String filename = FilenameUtils.getBaseName(file.toString());
-		return filename;
-	}
 
 	public static boolean testFileHeaderGif(File file) throws IOException {
 		fileReader = new BufferedReader(new FileReader(file));

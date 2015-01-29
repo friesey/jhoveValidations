@@ -8,7 +8,7 @@ public class XslStyleSheets {
 
 	public static void JhoveCustomizedXsl() throws IOException {
 
-		PrintWriter xslStyle = new PrintWriter(new FileWriter(validator.JhoveValidator.folder + "//" + "JhoveCustomized.xsl"));
+		PrintWriter xslStyle = new PrintWriter(new FileWriter(fileformats.pdf.validatePdf.folder + "//" + "JhoveCustomized.xsl"));
 
 		xslStyle.println("<?xml version=\"1.0\"?>");
 		xslStyle.println("<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">");

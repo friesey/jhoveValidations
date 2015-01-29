@@ -19,7 +19,6 @@ import edu.harvard.hul.ois.jhove.module.GifModule;
 import edu.harvard.hul.ois.jhove.module.PdfModule;
 import edu.harvard.hul.ois.jhove.module.TiffModule;
 
-// the libray JhoveApp.jar is not in the maven library. This causes a Travis error.
 
 public class JhoveValidator {
 
@@ -59,7 +58,7 @@ public class JhoveValidator {
 				String appName = "Customized JHOVE";
 				String version = "1.0";
 				
-				int[] date = getDate();
+				int[] date = validatorUtilities.genericUtilities.getDate();
 				String usage = "Call JHOVE via own Java";
 				String rights = "Copyright nestor Format Working Group";
 				App app = new App(appName, version, date, usage, rights);
@@ -88,7 +87,7 @@ public class JhoveValidator {
 					if (validatorUtilities.GenericFileAnalysis.testFileHeaderPdf(files.get(i)) == true) { //tests only PDF with Header %PDF
 						writer.println("<item>");
 						if (files.get(i).toString().contains("&")) {
-							String substitute = normaliseToUtf8(files.get(i).toString());
+							String substitute = validatorUtilities.genericUtilities.normaliseToUtf8(files.get(i).toString());
 							writer.println("<filename>" + substitute + "</filename>");
 						} else {
 							writer.println("<filename>" + files.get(i).toString() + "</filename>");
@@ -109,56 +108,7 @@ public class JhoveValidator {
 		}
 	}
 	
-	private static int[] getDate() {
-		String date = new java.util.Date().toString();
-
-		String[] parts = date.split(" ");
-
-		for (int i = 0; i < parts.length; i++) {
-			System.out.println(i + " " + parts[i]);
-		}
-
-		int year = Integer.parseInt(parts[5]);
-		int day = Integer.parseInt(parts[2]);
-
-		String monthstr = (parts[1]);
-		int month = 0;
-
-		switch (monthstr) {
-		case "Jan":
-			month = 1;
-		case "Feb":
-			month = 2;
-		case "Mar":
-			month = 3;
-		case "Apr":
-			month = 4;
-		case "May":
-			month = 5;
-		case "Jun":
-			month = 6;
-		case "Jul":
-			month = 7;
-		case "Aug":
-			month = 8;
-		case "Sep":
-			month = 9;
-		case "Oct":
-			month = 10;
-		case "Nov":
-			month = 11;
-		case "Dec":
-			month = 12;
-		}
-
-		int[] dateInt = { year, month, day };
-
-		for (int j = 0; j < dateInt.length; j++) {
-			System.out.println(dateInt[j]);
-		}
-		
-		return dateInt;
-	}
+	
 
 	public static void JhoveGifValidator() {
 		
@@ -190,7 +140,7 @@ public class JhoveValidator {
 				String appName = "Customized JHOVE";
 				String version = "1.0";
 				
-				int[] date = getDate();
+				int[] date = validatorUtilities.genericUtilities.getDate();
 				String usage = "Call JHOVE via own Java";
 				String rights = "Copyright nestor Format Working Group";
 				App app = new App(appName, version, date, usage, rights);
@@ -219,7 +169,7 @@ public class JhoveValidator {
 				if (validatorUtilities.GenericFileAnalysis.testFileHeaderGif(files.get(i).toString()) == true) {
 						writer.println("<item>");
 						if (files.get(i).toString().contains("&")) {
-							String substitute = normaliseToUtf8(files.get(i).toString());
+							String substitute = validatorUtilities.genericUtilities.normaliseToUtf8(files.get(i).toString());
 							writer.println("<filename>" + substitute + "</filename>");
 						} else {
 							writer.println("<filename>" + files.get(i).toString() + "</filename>");
@@ -270,7 +220,7 @@ public class JhoveValidator {
 				String appName = "Customized JHOVE";
 				String version = "1.0";
 				
-				int[] date = getDate();
+				int[] date = validatorUtilities.genericUtilities.getDate();
 				String usage = "Call JHOVE via own Java";
 				String rights = "Copyright nestor Format Working Group";
 				App app = new App(appName, version, date, usage, rights);
@@ -299,7 +249,7 @@ public class JhoveValidator {
 					if (validatorUtilities.GenericFileAnalysis.testFileHeaderTiff(files.get(i)) == true) {
 						writer.println("<item>");
 						if (files.get(i).toString().contains("&")) {
-							String substitute = normaliseToUtf8(files.get(i).toString());
+							String substitute = validatorUtilities.genericUtilities.normaliseToUtf8(files.get(i).toString());
 							writer.println("<filename>" + substitute + "</filename>");
 						} else {
 							writer.println("<filename>" + files.get(i).toString() + "</filename>");
@@ -321,11 +271,7 @@ public class JhoveValidator {
 		
 	}
 
-	public static String normaliseToUtf8(String string) {
-		String[] splitstring = string.split("&");
-		String substitute = splitstring[0] + "&#38;" + splitstring[1];
-		return substitute;
-	}
+
 
 	 public void init(String init) throws Exception {
 
@@ -337,7 +283,7 @@ public class JhoveValidator {
 	public static void checkGifWithJhove(File giffile) throws Exception {
 		outputs.GifXmlOutput.xmlgifwriter.println("<item>");
 		if (giffile.toString().contains("&")) {
-			String substitute = JhoveValidator.normaliseToUtf8(giffile.toString());
+			String substitute = validatorUtilities.genericUtilities.normaliseToUtf8(giffile.toString());
 			outputs.GifXmlOutput.xmlgifwriter.println("<filename>" + substitute + "</filename>");
 		} else {
 			outputs.GifXmlOutput.xmlgifwriter.println("<filename>" + giffile.toString() + "</filename>");
@@ -345,7 +291,6 @@ public class JhoveValidator {
 		JhoveValidator.jhoveBaseGif.process(JhoveValidator.gifjhoveapp, JhoveValidator.gifmodule, JhoveValidator.handler, giffile.toString());
 		outputs.GifXmlOutput.xmlgifwriter.println("</item>");
 	}	
-
 	
 
 	public static void createJhoveChecker() throws Exception {

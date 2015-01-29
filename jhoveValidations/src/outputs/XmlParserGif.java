@@ -49,7 +49,7 @@ public class XmlParserGif {
 					String testutf8 = eElement.getElementsByTagName("filename").item(0).getTextContent();
 
 					if (testutf8.contains("&")) {
-						String sub = validator.JhoveValidator.normaliseToUtf8(testutf8);
+						String sub = validatorUtilities.genericUtilities.normaliseToUtf8(testutf8);
 						xmlsummary.println("<FileName>" + sub + "</FileName>");
 					} else {
 						xmlsummary.println("<FileName>" + eElement.getElementsByTagName("filename").item(0).getTextContent() + "</FileName>");

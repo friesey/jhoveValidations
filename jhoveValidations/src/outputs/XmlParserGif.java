@@ -23,7 +23,7 @@ public class XmlParserGif {
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(xmlfile);
 
-			PrintWriter xmlsummary = new PrintWriter(new FileWriter((GifChecker.giffolder + "//" + "GifExaminationSummary" + ".xml")));
+			PrintWriter xmlsummary = new PrintWriter(new FileWriter(("D://GifExaminationSummary" + ".xml"))); //TODO: customize
 
 			String xmlVersion = "xml version='1.0'";
 			String xmlEncoding = "encoding='ISO-8859-1'";
@@ -33,7 +33,7 @@ public class XmlParserGif {
 			xmlsummary.println(xmlxslStyleSheet);
 			xmlsummary.println("<JhoveFindingsSummary>");
 
-			output.XslStyleSheets.GifJhoveCustomizedXsl(); 
+			outputs.XslStyleSheets.GifJhoveCustomizedXsl(); 
 
 			ArrayList<String> errormessages = new ArrayList<String>();
 
@@ -49,7 +49,7 @@ public class XmlParserGif {
 					String testutf8 = eElement.getElementsByTagName("filename").item(0).getTextContent();
 
 					if (testutf8.contains("&")) {
-						String sub = externalToolAnalysis.JhoveValidator.normaliseToUtf8(testutf8);
+						String sub = validator.JhoveValidator.normaliseToUtf8(testutf8);
 						xmlsummary.println("<FileName>" + sub + "</FileName>");
 					} else {
 						xmlsummary.println("<FileName>" + eElement.getElementsByTagName("filename").item(0).getTextContent() + "</FileName>");

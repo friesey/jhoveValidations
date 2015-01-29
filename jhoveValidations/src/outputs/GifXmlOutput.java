@@ -12,7 +12,7 @@ public class GifXmlOutput {
 
 	public static void createXmlGifOutput() throws IOException {
 		
-		pathtowriter = GifChecker.giffolder + "//" + "GifExamination" + ".xml";
+		pathtowriter = "D:\\GifExamination" + ".xml"; //TODO customize
 
 		xmlgifwriter = new PrintWriter(new FileWriter(pathtowriter));
 

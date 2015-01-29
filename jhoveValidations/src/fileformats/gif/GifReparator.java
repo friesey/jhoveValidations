@@ -19,19 +19,12 @@ import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 import javax.swing.JOptionPane;
 
-import org.apache.commons.io.FilenameUtils;
-import org.apache.sanselan.ImageReadException;
-import org.apache.sanselan.Sanselan;
-import org.apache.sanselan.formats.gif.GifImageParser;
-
-//import ij.*;
-
 public class GifReparator {
 
 	public static void repairgif(File giffile) throws IOException {
 
 		ImageInputStream iis = ImageIO.createImageInputStream(giffile);
-		String ext = FilenameUtils.getExtension(giffile.toString()).toLowerCase();
+		String ext = validatorUtilities.fileStringUtilities.getExtension(giffile.toString()).toLowerCase();
 		// all the files should have "gif"
 
 		Iterator<?> imgReaders = ImageIO.getImageReadersByFormatName(ext);		
@@ -89,17 +82,18 @@ public class GifReparator {
 						 */);
 		
 	InputStream is = new BufferedInputStream(new FileInputStream(gif.toString()));
-	GifImageParser parser = new GifImageParser();
+	// GifImageParser parser = new GifImageParser();
 	OutputStream stream = new FileOutputStream(outputImg);
-	parser.copyStreamToStream(is, stream);
+//	parser.copyStreamToStream(is, stream);
 	}
 	
-	public static String getXmpMeta (File gif) throws ImageReadException, IOException {
+	public static String getXmpMeta (File gif) throws  IOException {
 		// TODO: getXmpXml works for intact files, returns null if no XMP
 		// available
 		
-		String xmp = Sanselan.getXmpXml(gif); System.out.println(xmp);
-		return xmp;
+	//	String xmp = Sanselan.getXmpXml(gif); System.out.println(xmp);
+	//	return xmp;
+		return null;
 	}
 
 }

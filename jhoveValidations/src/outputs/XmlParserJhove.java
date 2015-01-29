@@ -20,7 +20,7 @@ public class XmlParserJhove {
 
 		JOptionPane.showMessageDialog(null, "Please choose the XML File to analyse", "XmlParsing", JOptionPane.QUESTION_MESSAGE);
 
-		String xmlfile = utilities.BrowserDialogs.chooseFile();
+		String xmlfile = validatorUtilities.BrowserDialogs.chooseFile();
 
 		parseXmlFile(xmlfile);
 	}
@@ -31,7 +31,7 @@ public class XmlParserJhove {
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(xmlfile);
 
-			PrintWriter xmlsummary = new PrintWriter(new FileWriter((JhoveValidator.folder + "//" + "JhoveExaminationSummary" + ".xml")));
+			PrintWriter xmlsummary = new PrintWriter(new FileWriter((validator.JhoveValidator.folder + "//" + "JhoveExaminationSummary" + ".xml")));
 
 			String xmlVersion = "xml version='1.0'";
 			String xmlEncoding = "encoding='ISO-8859-1'";
@@ -41,7 +41,7 @@ public class XmlParserJhove {
 			xmlsummary.println(xmlxslStyleSheet);
 			xmlsummary.println("<JhoveFindingsSummary>");
 
-			output.XslStyleSheets.JhoveCustomizedXsl();
+			outputs.XslStyleSheets.JhoveCustomizedXsl();
 
 			ArrayList<String> errormessages = new ArrayList<String>();
 
@@ -57,7 +57,7 @@ public class XmlParserJhove {
 					String testutf8 = eElement.getElementsByTagName("filename").item(0).getTextContent();
 
 					if (testutf8.contains("&")) {
-						String sub = JhoveValidator.normaliseToUtf8(testutf8);
+						String sub = validator.JhoveValidator.normaliseToUtf8(testutf8);
 						xmlsummary.println("<FileName>" + sub + "</FileName>");
 					} else {
 						xmlsummary.println("<FileName>" + eElement.getElementsByTagName("filename").item(0).getTextContent() + "</FileName>");

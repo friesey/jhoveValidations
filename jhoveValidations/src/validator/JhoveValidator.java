@@ -18,7 +18,6 @@ import edu.harvard.hul.ois.jhove.handler.XmlHandler;
 import edu.harvard.hul.ois.jhove.module.GifModule;
 import edu.harvard.hul.ois.jhove.module.PdfModule;
 import edu.harvard.hul.ois.jhove.module.TiffModule;
-import filetools.gif.GifXmlOutput;
 
 // the libray JhoveApp.jar is not in the maven library. This causes a Travis error.
 
@@ -36,7 +35,7 @@ public class JhoveValidator {
 
 		try {
 			JOptionPane.showMessageDialog(null, "Please choose a Folder with PDF files", "JHOVE PDF-Examination", JOptionPane.QUESTION_MESSAGE);
-			folder = utilities.BrowserDialogs.chooseFolder();
+			folder = validatorUtilities.BrowserDialogs.chooseFolder();
 			if (folder != null) {
 				
 				JFrame f = new JFrame();
@@ -68,7 +67,7 @@ public class JhoveValidator {
 				Module module = new PdfModule(); // JHOVE PdfModule only
 
 				OutputHandler handler = new XmlHandler();
-				ArrayList<File> files = utilities.ListsFiles.getPaths(new File(folder), new ArrayList<File>());
+				ArrayList<File> files = validatorUtilities.ListsFiles.getPaths(new File(folder), new ArrayList<File>());
 
 				pathwriter = (folder + "//" + "JhoveExamination.xml");
 
@@ -86,7 +85,7 @@ public class JhoveValidator {
 
 				// To handle one file after the other
 				for (int i = 0; i < files.size(); i++) {
-					if (filetools.GenericFileAnalysis.testFileHeaderPdf(files.get(i)) == true) { //tests only PDF with Header %PDF
+					if (validatorUtilities.GenericFileAnalysis.testFileHeaderPdf(files.get(i)) == true) { //tests only PDF with Header %PDF
 						writer.println("<item>");
 						if (files.get(i).toString().contains("&")) {
 							String substitute = normaliseToUtf8(files.get(i).toString());
@@ -100,7 +99,7 @@ public class JhoveValidator {
 				}
 				writer.println("</JhoveFindings>");
 				writer.close();
-				externalToolAnalysis.XmlParserJhove.parseXmlFile(pathwriter);
+				outputs.XmlParserJhove.parseXmlFile(pathwriter);
 				
 				f.dispose();
 			}
@@ -167,7 +166,7 @@ public class JhoveValidator {
 
 		try {
 			JOptionPane.showMessageDialog(null, "Please choose a Folder with Gif files", "JHOVE Gif-Examination", JOptionPane.QUESTION_MESSAGE);
-			folder = utilities.BrowserDialogs.chooseFolder();
+			folder = validatorUtilities.BrowserDialogs.chooseFolder();
 			if (folder != null) {
 				
 				JFrame f = new JFrame();
@@ -199,7 +198,7 @@ public class JhoveValidator {
 				Module module = new GifModule();
 
 				OutputHandler handler = new XmlHandler();
-				ArrayList<File> files = utilities.ListsFiles.getPaths(new File(folder), new ArrayList<File>());
+				ArrayList<File> files = validatorUtilities.ListsFiles.getPaths(new File(folder), new ArrayList<File>());
 
 				pathwriter = (folder + "//" + "JhoveExamination.xml");
 
@@ -217,7 +216,7 @@ public class JhoveValidator {
 
 				// To handle one file after the other
 				for (int i = 0; i < files.size(); i++) {
-				if (filetools.GenericFileAnalysis.testFileHeaderGif(files.get(i).toString()) == true) {
+				if (validatorUtilities.GenericFileAnalysis.testFileHeaderGif(files.get(i).toString()) == true) {
 						writer.println("<item>");
 						if (files.get(i).toString().contains("&")) {
 							String substitute = normaliseToUtf8(files.get(i).toString());
@@ -231,7 +230,7 @@ public class JhoveValidator {
 				}
 				writer.println("</JhoveFindings>");
 				writer.close();
-				externalToolAnalysis.XmlParserJhove.parseXmlFile(pathwriter);
+				outputs.XmlParserJhove.parseXmlFile(pathwriter);
 				
 				f.dispose();
 			}
@@ -247,7 +246,7 @@ public class JhoveValidator {
 
 		try {
 			JOptionPane.showMessageDialog(null, "Please choose a Folder with Tiff files", "JHOVE Tiff-Examination", JOptionPane.QUESTION_MESSAGE);
-			folder = utilities.BrowserDialogs.chooseFolder();
+			folder = validatorUtilities.BrowserDialogs.chooseFolder();
 			if (folder != null) {
 				
 				JFrame f = new JFrame();
@@ -279,7 +278,7 @@ public class JhoveValidator {
 				Module module = new TiffModule();
 
 				OutputHandler handler = new XmlHandler();
-				ArrayList<File> files = utilities.ListsFiles.getPaths(new File(folder), new ArrayList<File>());
+				ArrayList<File> files = validatorUtilities.ListsFiles.getPaths(new File(folder), new ArrayList<File>());
 
 				pathwriter = (folder + "//" + "JhoveExamination.xml");
 
@@ -297,7 +296,7 @@ public class JhoveValidator {
 
 				// To handle one file after the other
 				for (int i = 0; i < files.size(); i++) {
-					if (filetools.GenericFileAnalysis.testFileHeaderTiff(files.get(i)) == true) {
+					if (validatorUtilities.GenericFileAnalysis.testFileHeaderTiff(files.get(i)) == true) {
 						writer.println("<item>");
 						if (files.get(i).toString().contains("&")) {
 							String substitute = normaliseToUtf8(files.get(i).toString());
@@ -311,7 +310,7 @@ public class JhoveValidator {
 				}
 				writer.println("</JhoveFindings>");
 				writer.close();
-				externalToolAnalysis.XmlParserJhove.parseXmlFile(pathwriter);
+				outputs.XmlParserJhove.parseXmlFile(pathwriter);
 				
 				f.dispose();
 			}
@@ -336,15 +335,15 @@ public class JhoveValidator {
 	}
 
 	public static void checkGifWithJhove(File giffile) throws Exception {
-		GifXmlOutput.xmlgifwriter.println("<item>");
+		outputs.GifXmlOutput.xmlgifwriter.println("<item>");
 		if (giffile.toString().contains("&")) {
 			String substitute = JhoveValidator.normaliseToUtf8(giffile.toString());
-			GifXmlOutput.xmlgifwriter.println("<filename>" + substitute + "</filename>");
+			outputs.GifXmlOutput.xmlgifwriter.println("<filename>" + substitute + "</filename>");
 		} else {
-			GifXmlOutput.xmlgifwriter.println("<filename>" + giffile.toString() + "</filename>");
+			outputs.GifXmlOutput.xmlgifwriter.println("<filename>" + giffile.toString() + "</filename>");
 		}
 		JhoveValidator.jhoveBaseGif.process(JhoveValidator.gifjhoveapp, JhoveValidator.gifmodule, JhoveValidator.handler, giffile.toString());
-		GifXmlOutput.xmlgifwriter.println("</item>");
+		outputs.GifXmlOutput.xmlgifwriter.println("</item>");
 	}	
 
 	
@@ -371,11 +370,10 @@ public class JhoveValidator {
 		JhoveValidator.gifmodule = new GifModule(); // JHOVE GifModule only
 		JhoveValidator.handler = new XmlHandler();
 
-		JhoveValidator.handler.setWriter(GifXmlOutput.xmlgifwriter);
+		JhoveValidator.handler.setWriter(outputs.GifXmlOutput.xmlgifwriter);
 		JhoveValidator.handler.setBase(JhoveValidator.jhoveBaseGif);
 		JhoveValidator.gifmodule.init("");
 		JhoveValidator.gifmodule.setDefaultParams(new ArrayList<String>());
 
 	}
-
 }

@@ -4,107 +4,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import externalToolAnalysis.JhoveValidator;
-import filetools.gif.GifChecker;
-import filetools.pdf.PdfInformationExtractionDSA;
-import filetools.pdf.PdftoXmlConversion;
-
 public class XslStyleSheets {
-	
-	public static void PdfToXmlConversionStyleSheet() throws IOException {
-		
-		PrintWriter xslStyle = new PrintWriter(new FileWriter(PdftoXmlConversion.examinedFolder + "//" + "PdfToXmlConversionStyleSheet.xsl"));
-		
-		xslStyle.println("<?xml version=\"1.0\"?>");
-		xslStyle.println("<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">");
-		xslStyle.println("<xsl:template match=\"/\">");
-		xslStyle.println("<html>");
-		xslStyle.println("<head>");
-		xslStyle.println("<style>");
-		xslStyle.println("tr.captiondred {background-color: #FF0000}");
-		xslStyle.println("tr.captionred {background-color: #CD5C5C}");
-		xslStyle.println("tr.captiongreen {background-color: #006400}");
-		xslStyle.println("tr.captiontan {background-color: #FFDEAD}");
-		xslStyle.println("</style>");
-		xslStyle.println("</head>");
-		
-		xslStyle.println("<body>");
-		xslStyle.println("<h1>Data Seal of Approval Analyse</h1>");
-		xslStyle.println("<h2>All Criteria Answers</h2>");
-		xslStyle.println("<table border =\"1\">");
-		xslStyle.println("<tr class=\"captiontan\">");	
-
-		xslStyle.println("<th>Criterium</th>");
-	//	xslStyle.println("<th>Criterium</th>");
-		xslStyle.println("</tr>");
-		xslStyle.println("<xsl:for-each select=\"DataSeal/Criteria\">");
-
-		xslStyle.println("<tr class=\"captiontan\">");
-		xslStyle.println("<td><xsl:value-of select=\"Criterium\"/></td>");
-	//	xslStyle.println("<td><xsl:value-of select=\"Criterium\"/></td>");
-		xslStyle.println("</tr>");
-		xslStyle.println("</xsl:for-each>");
-		xslStyle.println("</table>");
-		
-		
-		xslStyle.println("</body>");
-		xslStyle.println("</html>");
-		xslStyle.println("</xsl:template>");
-		xslStyle.println("</xsl:stylesheet>");
-		xslStyle.close();
-	}
-
-	public static void InformationExtractionXsl() throws IOException {
-
-		PrintWriter xslStyle = new PrintWriter(new FileWriter(PdfInformationExtractionDSA.examinedFolder + "//" + "InformationExtractionXsl.xsl"));
-
-		xslStyle.println("<?xml version=\"1.0\"?>");
-		xslStyle.println("<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">");
-		xslStyle.println("<xsl:template match=\"/\">");
-		xslStyle.println("<html>");
-		xslStyle.println("<head>");
-		xslStyle.println("<style>");
-		xslStyle.println("tr.captiondred {background-color: #FF0000}");
-		xslStyle.println("tr.captionred {background-color: #CD5C5C}");
-		xslStyle.println("tr.captiongreen {background-color: #006400}");
-		xslStyle.println("tr.captiontan {background-color: #FFDEAD}");
-		xslStyle.println("</style>");
-		xslStyle.println("</head>");
-
-		xslStyle.println("<body>");
-		xslStyle.println("<h1>Data Seal of Approval Analyse</h1>");
-		xslStyle.println("<h2>Informationen aus Dateien</h2>");
-		xslStyle.println("<table border =\"1\">");
-		xslStyle.println("<tr class=\"captiontan\">");
-		// xslStyle.println("<th>Filename</th>");
-		xslStyle.println("<th>Repository</th>");
-		xslStyle.println("<th>Number of Pages</th>");
-		xslStyle.println("<th>Number of Links</th>");
-		xslStyle.println("<th>Seal Acquiry Date</th>");
-		xslStyle.println("</tr>");
-		xslStyle.println("<xsl:for-each select=\"Information/File\">");
-		xslStyle.println("<xsl:sort select=\"PdfPages\" />");
-
-		xslStyle.println("<tr class=\"captiontan\">");
-		// xslStyle.println("<td><xsl:value-of select=\"FileName\"/></td>");
-		xslStyle.println("<td><xsl:value-of select=\"Repository\"/></td>");
-		xslStyle.println("<td><xsl:value-of select=\"PdfPages\"/></td>");
-		xslStyle.println("<td><xsl:value-of select=\"NumberOfLinks\"/></td>");
-		xslStyle.println("<td><xsl:value-of select=\"SealAcquiryDate\"/></td>");
-		xslStyle.println("</tr>");
-		xslStyle.println("</xsl:for-each>");
-		xslStyle.println("</table>");
-		xslStyle.println("</body>");
-		xslStyle.println("</html>");
-		xslStyle.println("</xsl:template>");
-
-		xslStyle.println("</xsl:stylesheet>");
-		xslStyle.close();
-	}
 
 	public static void JhoveCustomizedXsl() throws IOException {
 
-		PrintWriter xslStyle = new PrintWriter(new FileWriter(JhoveValidator.folder + "//" + "JhoveCustomized.xsl"));
+		PrintWriter xslStyle = new PrintWriter(new FileWriter(validator.JhoveValidator.folder + "//" + "JhoveCustomized.xsl"));
 
 		xslStyle.println("<?xml version=\"1.0\"?>");
 		xslStyle.println("<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">");
@@ -191,7 +95,11 @@ public class XslStyleSheets {
 
 	public static void GifJhoveCustomizedXsl() throws IOException {
 
-		PrintWriter xslStyle = new PrintWriter(new FileWriter((GifChecker.giffolder + "//" + "GifJhoveCustomized.xsl")));
+		PrintWriter xslStyle = new PrintWriter(new FileWriter("D:\\GifJhoveCustomized.xsl"));// TODO:
+																								// has
+																								// to
+																								// be
+																								// cumstomized
 		xslStyle.println("<?xml version=\"1.0\"?>");
 		xslStyle.println("<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">");
 		xslStyle.println("<xsl:template match=\"JhoveFindingsSummary\">");
@@ -309,7 +217,11 @@ public class XslStyleSheets {
 
 	public static void TiffTagAnalysisCustomizedXsl() throws IOException {
 
-		PrintWriter xslStyle = new PrintWriter(new FileWriter(filetools.tiff.TiffFileAnalysis.examinedFolder + "//" + "TiffTagStyle.xsl"));
+		PrintWriter xslStyle = new PrintWriter(new FileWriter("D://TiffTagStyle.xsl")); // TODO:
+																						// has
+																						// to
+																						// be
+																						// cumstomized
 
 		xslStyle.println("<?xml version=\"1.0\"?>");
 		xslStyle.println("<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">");

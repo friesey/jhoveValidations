@@ -1,5 +1,5 @@
 package fileformats.jpeg;
 
-public class JPEG2000 {
+public class Jpeg2000 {
 
 }

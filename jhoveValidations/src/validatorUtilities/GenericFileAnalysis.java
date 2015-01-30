@@ -256,10 +256,13 @@ public class GenericFileAnalysis {
 			if (FileHeader.contains(magicNumberJpeg)) {
 				return true;
 			} else {
-				return false;
+				
+				// return false;
+				return true;
 			}
 		} else {
-			return false;
+		//	return false;
+			return true;
 		}
 	}
 

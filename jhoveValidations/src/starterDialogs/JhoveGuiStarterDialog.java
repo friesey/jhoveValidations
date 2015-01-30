@@ -28,6 +28,8 @@ public class JhoveGuiStarterDialog {
 
 		JOptionPane.showMessageDialog(null, "Please choose the folder with files to validate.", "JHOVE Examination", JOptionPane.QUESTION_MESSAGE);
 		 jhoveExaminationFolder = validatorUtilities.BrowserDialogs.chooseFolder();
+		 
+		 //TODO: add used Module
 				
 		switch (inteingabe) {
 		case 0:		

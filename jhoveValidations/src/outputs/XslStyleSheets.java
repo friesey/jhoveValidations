@@ -31,17 +31,19 @@ public class XslStyleSheets {
 		// xslStyle.println("<h4>JHOVE Examination per File</h4>");
 
 		xslStyle.println("<th>FileName</th>");
+		xslStyle.println("<th>Jhove Module</th>");
 		xslStyle.println("<th>Status</th>");
 		xslStyle.println("<th>JhoveMessages</th>");
 		xslStyle.println("<th>Message1</th>");
 		xslStyle.println("<th>Message2</th>");
 		xslStyle.println("<th>Message3</th>");
 		xslStyle.println("</tr>");
-		xslStyle.println("<xsl:for-each select=\"JhoveFindingsSummary/PdfFile\">");
+		xslStyle.println("<xsl:for-each select=\"JhoveFindingsSummary/File\">");
 		xslStyle.println("<xsl:sort select=\"Status\" />");
 		xslStyle.println("<xsl:if test=\"Status[contains(text(),'Not')]\">");
 		xslStyle.println("<tr class=\"captiondred\">");
 		xslStyle.println("<td><i><xsl:value-of select=\"FileName\"/></i></td>");
+		xslStyle.println("<td><xsl:value-of select=\"Module\"/></td>");
 		xslStyle.println("<td><xsl:value-of select=\"Status\"/></td>");
 		xslStyle.println("<td><xsl:value-of select=\"JhoveMessages\"/></td>");
 		xslStyle.println("<td><xsl:value-of select=\"Message1\"/></td>");
@@ -52,6 +54,7 @@ public class XslStyleSheets {
 		xslStyle.println("<xsl:if test=\"Status[contains(text(),'not')]\">");
 		xslStyle.println("<tr class=\"captionred\">");
 		xslStyle.println("<td><i><xsl:value-of select=\"FileName\" /></i></td>");
+		xslStyle.println("<td><xsl:value-of select=\"Module\"/></td>");
 		xslStyle.println("<td><xsl:value-of select=\"Status\" /></td>");
 		xslStyle.println("<td><xsl:value-of select=\"JhoveMessages\" /></td>");
 		xslStyle.println("<td><xsl:value-of select=\"Message1\" /></td>");
@@ -62,6 +65,7 @@ public class XslStyleSheets {
 		xslStyle.println("<xsl:if test=\"Status[contains(text(),'and')]\">");
 		xslStyle.println("<tr class=\"captiongreen\">");
 		xslStyle.println("<td><i><xsl:value-of select=\"FileName\" /></i></td>");
+		xslStyle.println("<td><xsl:value-of select=\"Module\"/></td>");
 		xslStyle.println("<td><xsl:value-of select=\"Status\" /></td>");
 		xslStyle.println("<td><xsl:value-of select=\"JhoveMessages\" /></td>");
 		xslStyle.println("<td><xsl:value-of select=\"Message1\" /></td>");

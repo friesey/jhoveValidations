@@ -53,7 +53,7 @@ public class XmlParserJhove {
 				Node nNode = nList.item(temp);
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element eElement = (Element) nNode;
-					xmlsummary.println("<PdfFile>"); //TODO: should be changed to File, but as well in XSLT
+					xmlsummary.println("<File>"); 
 					String testutf8 = eElement.getElementsByTagName("filename").item(0).getTextContent();
 
 					if (testutf8.contains("&")) {
@@ -62,6 +62,7 @@ public class XmlParserJhove {
 					} else {
 						xmlsummary.println("<FileName>" + eElement.getElementsByTagName("filename").item(0).getTextContent() + "</FileName>");
 					}
+					xmlsummary.println("<Module>" + eElement.getElementsByTagName("reportingModule").item(0).getTextContent() + "</Module>");
 					xmlsummary.println("<Status>" + eElement.getElementsByTagName("status").item(0).getTextContent() + "</Status>");
 
 					String status = eElement.getElementsByTagName("status").item(0).getTextContent();
@@ -80,7 +81,7 @@ public class XmlParserJhove {
 							errormessages.add(error);
 						}
 					}
-					xmlsummary.println("</PdfFile>"); //TODO: should be changed to File, but as well in XSLT
+					xmlsummary.println("</File>"); //TODO: should be changed to File, but as well in XSLT
 				}
 			}
 

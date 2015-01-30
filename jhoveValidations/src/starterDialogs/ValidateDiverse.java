@@ -28,7 +28,6 @@ import edu.harvard.hul.ois.jhove.module.Utf8Block;
 import edu.harvard.hul.ois.jhove.module.Utf8Module;
 import edu.harvard.hul.ois.jhove.module.WaveModule;
 import edu.harvard.hul.ois.jhove.module.XmlModule;
-import fileformats.pdf.ValidatePdf;
 
 public class ValidateDiverse {
 
@@ -39,14 +38,13 @@ public class ValidateDiverse {
 	public static String folder;
 
 	public static void JhoveDiverseValidator() {
-		
-		//depending on the file extension, the module is chosen
-		
-		
+
+		// depending on the file extension, the module is chosen
+
 		String pathwriter;
 
 		try {
-			
+
 			folder = starterDialogs.JhoveGuiStarterDialog.jhoveExaminationFolder;
 			if (folder != null) {
 
@@ -79,16 +77,15 @@ public class ValidateDiverse {
 				Module jpeg2000Module = new Jpeg2000Module();
 				Module pdfModule = new PdfModule();
 				Module jpegModule = new JpegModule();
-				Module tiffModule =new TiffModule();
+				Module tiffModule = new TiffModule();
 				Module gifModule = new GifModule();
 				Module xmlModule = new XmlModule();
 				Module aiffModule = new AiffModule();
 				Module waveModule = new WaveModule();
 				Module asciiModule = new AsciiModule();
 				Module utf8Module = new Utf8Module();
-				Module htmlModule = new HtmlModule();				
+				Module htmlModule = new HtmlModule();
 				Module bytestreamModule = new BytestreamModule();
-																					
 
 				OutputHandler handler = new XmlHandler();
 				ArrayList<File> files = validatorUtilities.ListsFiles.getPaths(new File(folder), new ArrayList<File>());
@@ -98,37 +95,36 @@ public class ValidateDiverse {
 				PrintWriter writer = new PrintWriter(new FileWriter(pathwriter));
 				handler.setWriter(writer);
 				handler.setBase(jb);
-				
+
 				jpeg2000Module.init("");
 				jpeg2000Module.setDefaultParams(new ArrayList<String>());
-				
+
 				pdfModule.init("");
 				pdfModule.setDefaultParams(new ArrayList<String>());
-				
+
 				jpegModule.init("");
 				jpegModule.setDefaultParams(new ArrayList<String>());
-				
+
 				tiffModule.init("");
 				tiffModule.setDefaultParams(new ArrayList<String>());
-				
+
 				gifModule.init("");
 				gifModule.setDefaultParams(new ArrayList<String>());
-				
+
 				xmlModule.init("");
 				xmlModule.setDefaultParams(new ArrayList<String>());
-								
+
 				aiffModule.init("");
 				aiffModule.setDefaultParams(new ArrayList<String>());
-				
+
 				utf8Module.init("");
 				utf8Module.setDefaultParams(new ArrayList<String>());
-				
+
 				htmlModule.init("");
-				htmlModule.setDefaultParams(new ArrayList<String>());				
-				
+				htmlModule.setDefaultParams(new ArrayList<String>());
+
 				bytestreamModule.init("");
 				bytestreamModule.setDefaultParams(new ArrayList<String>());
-				
 
 				String xmlVersion = "xml version='1.0'";
 				String xmlEncoding = "encoding='ISO-8859-1'";
@@ -137,7 +133,13 @@ public class ValidateDiverse {
 				writer.println("<JhoveFindings>");
 
 				// To handle one file after the other
-				for (int i = 0; i < files.size(); i++) {					
+				for (int i = 0; i < files.size(); i++) {
+
+					if ((files.get(i).toString().contains("JhoveExamination")) || (files.get(i).toString().contains("JhoveCustomized"))) {
+						// the outputfiles files should not be examined
+					}
+
+					else {
 						writer.println("<item>");
 						if (files.get(i).toString().contains("&")) {
 							String substitute = validatorUtilities.genericUtilities.normaliseToUtf8(files.get(i).toString());
@@ -145,34 +147,35 @@ public class ValidateDiverse {
 						} else {
 							writer.println("<filename>" + files.get(i).toString() + "</filename>");
 						}
-						
+
 						String extension = validatorUtilities.fileStringUtilities.getExtension(files.get(i).toString());
-						
+
 						extension = extension.toLowerCase();
-						
-						switch (extension){						
-						case "jpg":		
-							jb.process(app, jpegModule, handler, files.get(i).toString());				
+
+						switch (extension) {
+						case "jpg":
+							jb.process(app, jpegModule, handler, files.get(i).toString());
 							break;
-						case "pdf":		
-							jb.process(app, pdfModule, handler, files.get(i).toString());				
+						case "pdf":
+							jb.process(app, pdfModule, handler, files.get(i).toString());
 							break;
-						case "tif":		
-							jb.process(app, tiffModule, handler, files.get(i).toString());				
+						case "tif":
+							jb.process(app, tiffModule, handler, files.get(i).toString());
 							break;
-						case "gif":		
-							jb.process(app, gifModule, handler, files.get(i).toString());		
+						case "gif":
+							jb.process(app, gifModule, handler, files.get(i).toString());
 							break;
-						case "xml":		
-							jb.process(app, xmlModule, handler, files.get(i).toString());		
+						case "xml":
+							jb.process(app, xmlModule, handler, files.get(i).toString());
 							break;
 						default:
-							JOptionPane.showMessageDialog(null, "This file extension has not been developed yet or is not covered by JHOVE.", "Under construction", JOptionPane.WARNING_MESSAGE);
-							//TODO: use bytestream module or ask user if he wants to skip or use bytestream
-							break;			
-						}												
-						
-						writer.println("</item>");		
+							jb.process(app, bytestreamModule, handler, files.get(i).toString());
+							// TODO: use bytestream module or ask user if he
+							// wants to skip or use bytestream
+							break;
+						}
+						writer.println("</item>");
+					}
 				}
 				writer.println("</JhoveFindings>");
 				writer.close();

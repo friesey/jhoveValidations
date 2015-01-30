@@ -28,7 +28,7 @@ import edu.harvard.hul.ois.jhove.module.Utf8Block;
 import edu.harvard.hul.ois.jhove.module.Utf8Module;
 import edu.harvard.hul.ois.jhove.module.WaveModule;
 import edu.harvard.hul.ois.jhove.module.XmlModule;
-import edu.harvard.hul.ois.jhove.module.
+import fileformats.pdf.ValidatePdf;
 
 public class ValidateDiverse {
 
@@ -137,8 +137,7 @@ public class ValidateDiverse {
 				writer.println("<JhoveFindings>");
 
 				// To handle one file after the other
-				for (int i = 0; i < files.size(); i++) {
-					if (validatorUtilities.GenericFileAnalysis.testFileHeaderJpeg2000(files.get(i).toString()) == true) {
+				for (int i = 0; i < files.size(); i++) {					
 						writer.println("<item>");
 						if (files.get(i).toString().contains("&")) {
 							String substitute = validatorUtilities.genericUtilities.normaliseToUtf8(files.get(i).toString());
@@ -146,9 +145,34 @@ public class ValidateDiverse {
 						} else {
 							writer.println("<filename>" + files.get(i).toString() + "</filename>");
 						}
-						jb.process(app, module, handler, files.get(i).toString());
-						writer.println("</item>");
-					}
+						
+						String extension = validatorUtilities.fileStringUtilities.getExtension(files.get(i).toString());
+						
+						extension = extension.toLowerCase();
+						
+						switch (extension){						
+						case "jpg":		
+							jb.process(app, jpegModule, handler, files.get(i).toString());				
+							break;
+						case "pdf":		
+							jb.process(app, pdfModule, handler, files.get(i).toString());				
+							break;
+						case "tif":		
+							jb.process(app, tiffModule, handler, files.get(i).toString());				
+							break;
+						case "gif":		
+							jb.process(app, gifModule, handler, files.get(i).toString());		
+							break;
+						case "xml":		
+							jb.process(app, xmlModule, handler, files.get(i).toString());		
+							break;
+						default:
+							JOptionPane.showMessageDialog(null, "This file extension has not been developed yet or is not covered by JHOVE.", "Under construction", JOptionPane.WARNING_MESSAGE);
+							//TODO: use bytestream module or ask user if he wants to skip or use bytestream
+							break;			
+						}												
+						
+						writer.println("</item>");		
 				}
 				writer.println("</JhoveFindings>");
 				writer.close();

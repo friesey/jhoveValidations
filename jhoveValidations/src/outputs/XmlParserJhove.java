@@ -76,6 +76,13 @@ public class XmlParserJhove {
 
 							String error = eElement.getElementsByTagName("message").item(temp3).getTextContent();
 							int writtenmessage = temp3 + 1;
+							
+							//TODO: get rid of xml escaping characters
+							error = error.replace("\"", "&quot;");
+							error = error.replace("\'", "&apos;");
+							error = error.replace("<", "&lt;");
+							error = error.replace(">", "&gt;");
+							error = error.replace("&", " &amp;");
 
 							xmlsummary.println("<Message" + writtenmessage + ">" + error + "</Message" + writtenmessage + ">");
 							errormessages.add(error);

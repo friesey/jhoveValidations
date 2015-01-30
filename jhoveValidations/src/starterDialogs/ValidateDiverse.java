@@ -168,6 +168,9 @@ public class ValidateDiverse {
 						case "xml":
 							jb.process(app, xmlModule, handler, files.get(i).toString());
 							break;
+						case "htm":
+							jb.process(app, htmlModule, handler, files.get(i).toString());
+							break;
 						default:
 							jb.process(app, bytestreamModule, handler, files.get(i).toString());
 							// TODO: use bytestream module or ask user if he

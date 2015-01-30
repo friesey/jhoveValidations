@@ -58,6 +58,7 @@ public class JhoveGuiStarterDialog {
 		break;
 		default:
 			JOptionPane.showMessageDialog(null, "Nothing will be done. Please choose properly.", "Misbehaviour", JOptionPane.WARNING_MESSAGE);
+			
 			break;
 		}
 	}

@@ -119,6 +119,10 @@ public class ValidateDiverse {
 
 				utf8Module.init("");
 				utf8Module.setDefaultParams(new ArrayList<String>());
+				
+
+				waveModule.init("");
+				waveModule.setDefaultParams(new ArrayList<String>());
 
 				htmlModule.init("");
 				htmlModule.setDefaultParams(new ArrayList<String>());
@@ -170,6 +174,12 @@ public class ValidateDiverse {
 							break;
 						case "htm":
 							jb.process(app, htmlModule, handler, files.get(i).toString());
+							break;
+						case "html":
+							jb.process(app, htmlModule, handler, files.get(i).toString());
+							break;
+						case "wav":
+							jb.process(app, waveModule, handler, files.get(i).toString());
 							break;
 						default:
 							jb.process(app, bytestreamModule, handler, files.get(i).toString());

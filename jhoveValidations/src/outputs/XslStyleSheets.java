@@ -23,7 +23,9 @@ public class XslStyleSheets {
 		xslStyle.println("</style>");
 		xslStyle.println("</head>");
 
-		xslStyle.println("<body>");
+		xslStyle.println("<body>");		
+		
+		xslStyle.println("<h2>Jhove Validation Findings</h2>");
 
 		// xslStyle.println("<h1>PDF files examined by JHOVE</h1>");
 		xslStyle.println("<table border =\"1\">");
@@ -75,6 +77,8 @@ public class XslStyleSheets {
 		xslStyle.println("</xsl:if>	");
 		xslStyle.println("</xsl:for-each>");
 		xslStyle.println("</table>");
+		
+		xslStyle.println("<h2>Summary of all found Error messages</h2>");
 
 		xslStyle.println("<table border=\"1\">");
 		xslStyle.println("<tr class=\"captiontan\">	");

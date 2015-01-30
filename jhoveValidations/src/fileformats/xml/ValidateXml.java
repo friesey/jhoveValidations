@@ -81,6 +81,7 @@ public class ValidateXml {
 				// To handle one file after the other
 				for (int i = 0; i < files.size(); i++) {
 					if (validatorUtilities.GenericFileAnalysis.testFileHeaderXml(files.get(i)) == true) {
+						System.out.println(files.get(i));
 						writer.println("<item>");
 						if (files.get(i).toString().contains("&")) {
 							String substitute = validatorUtilities.genericUtilities.normaliseToUtf8(files.get(i).toString());

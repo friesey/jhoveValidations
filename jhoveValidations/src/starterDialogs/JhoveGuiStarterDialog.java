@@ -24,7 +24,7 @@ public class JhoveGuiStarterDialog {
 		ImageIcon icon = new ImageIcon(path, description);
 
 		Object[] options = { "PDF", "GIF", "XML", "TIFF", "JPEG", "JPEG2000", "diverse" };
-		int inteingabe = JOptionPane.showOptionDialog(null, "Which file format do you want to validate?", "Jhove Validation", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, icon, options, options[1]);
+		int inteingabe = JOptionPane.showOptionDialog(null, "Which file format do you want to validate?", "Jhove Validation", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, icon, options, options[6]);
 
 		JOptionPane.showMessageDialog(null, "Please choose the folder with files to validate.", "JHOVE Examination", JOptionPane.QUESTION_MESSAGE);
 		 jhoveExaminationFolder = validatorUtilities.BrowserDialogs.chooseFolder();
@@ -46,8 +46,7 @@ public class JhoveGuiStarterDialog {
 			ValidateTiff.JhoveTiffValidator();
 			break;
 		case 4:
-			ValidateJpeg.JhoveJpegValidator();
-		
+			ValidateJpeg.JhoveJpegValidator();		
 			break;
 		case 5:
 			ValidateJpeg2000.JhoveJpeg2000Validator();

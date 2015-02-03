@@ -80,16 +80,21 @@ public class ValidateJpeg2000 {
 
 				// To handle one file after the other
 				for (int i = 0; i < files.size(); i++) {
-					if (validatorUtilities.GenericFileAnalysis.testFileHeaderJpeg2000(files.get(i).toString()) == true) {
-						writer.println("<item>");
-						if (files.get(i).toString().contains("&")) {
-							String substitute = validatorUtilities.genericUtilities.normaliseToUtf8(files.get(i).toString());
-							writer.println("<filename>" + substitute + "</filename>");
-						} else {
-							writer.println("<filename>" + files.get(i).toString() + "</filename>");
+					String extension = validatorUtilities.fileStringUtilities.getExtension(files.get(i).toString());
+					extension = extension.toLowerCase();
+					boolean isJpeg2000Extension = testExtension(extension);
+					if (isJpeg2000Extension == true) {
+						if (validatorUtilities.GenericFileAnalysis.testFileHeaderJpeg2000(files.get(i).toString()) == true) {
+							writer.println("<item>");
+							if (files.get(i).toString().contains("&")) {
+								String substitute = validatorUtilities.genericUtilities.normaliseToUtf8(files.get(i).toString());
+								writer.println("<filename>" + substitute + "</filename>");
+							} else {
+								writer.println("<filename>" + files.get(i).toString() + "</filename>");
+							}
+							jb.process(app, module, handler, files.get(i).toString());
+							writer.println("</item>");
 						}
-						jb.process(app, module, handler, files.get(i).toString());
-						writer.println("</item>");
 					}
 				}
 				writer.println("</JhoveFindings>");
@@ -102,5 +107,21 @@ public class ValidateJpeg2000 {
 			JOptionPane.showMessageDialog(null, e, "error message", JOptionPane.ERROR_MESSAGE);
 
 		}
+	}
+
+	private static boolean testExtension(String extension) {
+
+		String[] extensionJpeg2000 = { "jp2", "j2k", "jpf", "jpg2", "jpx", "jpm", "mj2", "mjp2" };
+
+		for (int i = 0; i < extensionJpeg2000.length; ) {
+			if (extension.equals(extensionJpeg2000[i])) {
+				return true;
+			}
+			else {
+				i++;
+			}
+		}
+
+		return false;
 	}
 }

@@ -3,12 +3,16 @@ package fileformats.pdf;
 import java.awt.BorderLayout;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
+import com.lowagie.text.pdf.PdfReader;
 
 import edu.harvard.hul.ois.jhove.App;
 import edu.harvard.hul.ois.jhove.JhoveBase;
@@ -17,25 +21,26 @@ import edu.harvard.hul.ois.jhove.OutputHandler;
 import edu.harvard.hul.ois.jhove.handler.XmlHandler;
 import edu.harvard.hul.ois.jhove.module.PdfModule;
 
-public class ValidatePdf {	
+public class ValidatePdf {
 
-	static OutputHandler handler; 
+	static OutputHandler handler;
 	public static String folder;
+	static PrintWriter writer;
 
-	 public static void JhovePdfValidator() {
+	public static void JhovePdfValidator() {
 
 		String pathwriter;
 
-		try {		
+		try {
 			folder = starterDialogs.JhoveGuiStarterDialog.jhoveExaminationFolder;
 			if (folder != null) {
-				
+
 				JFrame f = new JFrame();
 				JButton but = new JButton("... Program is running ... ");
 				f.add(but, BorderLayout.PAGE_END);
 				f.pack();
 				f.setVisible(true);
-				
+
 				JhoveBase jb = new JhoveBase();
 
 				String configFilePath = JhoveBase.getConfigFileFromProperties();
@@ -50,7 +55,7 @@ public class ValidatePdf {
 
 				String appName = "Customized JHOVE";
 				String version = "1.0";
-				
+
 				int[] date = validatorUtilities.genericUtilities.getDate();
 				String usage = "Call JHOVE via own Java";
 				String rights = "Copyright nestor Format Working Group";
@@ -63,7 +68,7 @@ public class ValidatePdf {
 
 				pathwriter = (folder + "//" + "JhoveExamination.xml");
 
-				PrintWriter writer = new PrintWriter(new FileWriter(pathwriter));
+				writer = new PrintWriter(new FileWriter(pathwriter));
 				handler.setWriter(writer);
 				handler.setBase(jb);
 				module.init("");
@@ -77,14 +82,20 @@ public class ValidatePdf {
 
 				// To handle one file after the other
 				for (int i = 0; i < files.size(); i++) {
-					if (validatorUtilities.GenericFileAnalysis.testFileHeaderPdf(files.get(i)) == true) { //tests only PDF with Header %PDF
+					if (validatorUtilities.GenericFileAnalysis.testFileHeaderPdf(files.get(i)) == true) { // tests
+																											// only
+																											// PDF
+																											// with
+																											// Header
+																											// %PDF
 						writer.println("<item>");
-						if (files.get(i).toString().contains("&")) {
-							String substitute = validatorUtilities.genericUtilities.normaliseToUtf8(files.get(i).toString());
-							writer.println("<filename>" + substitute + "</filename>");
-						} else {
-							writer.println("<filename>" + files.get(i).toString() + "</filename>");
-						}
+
+						String substitute = validatorUtilities.fileStringUtilities.getFileName(files.get(i).toString());
+						substitute = validatorUtilities.fileStringUtilities.reduceXmlEscapors(substitute);
+						writer.println("<filename>" + substitute + "</filename>");
+
+						addSomeMetadata(files.get(i).toString());
+
 						jb.process(app, module, handler, files.get(i).toString());
 						writer.println("</item>");
 					}
@@ -92,7 +103,7 @@ public class ValidatePdf {
 				writer.println("</JhoveFindings>");
 				writer.close();
 				outputs.XmlParserJhove.parseXmlFile(pathwriter);
-				
+
 				f.dispose();
 			}
 		} catch (Exception e) {
@@ -100,6 +111,30 @@ public class ValidatePdf {
 
 		}
 	}
-	
+
+	private static void addSomeMetadata(String pdfFile) throws IOException {
+
+		PdfReader reader = new PdfReader(pdfFile);
+
+		if (reader != null) {
+			Map<String, String> metadata = reader.getInfo();
+
+			if (metadata.get("CreationDate") != null) {
+				if (metadata.get("CreationDate").length() > 10) {
+					String creationYear = getYear(metadata.get("CreationDate"));
+					int creationYearInt = Integer.parseInt(creationYear);
+					if (creationYearInt > 1992) {
+						writer.println("<creationyear>" + creationYear + "</creationyear>");
+					}
+				}
+			}
+		}
+	}
+
+	private static String getYear(String creationYear) {
+		creationYear = creationYear.replace("D:", "");
+		String year = creationYear.substring(0, 4);
+		return year;
+	}
 
 }

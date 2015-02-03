@@ -62,6 +62,11 @@ public class XmlParserJhove {
 					} else {
 						xmlsummary.println("<FileName>" + eElement.getElementsByTagName("filename").item(0).getTextContent() + "</FileName>");
 					}
+				
+					if (eElement.getElementsByTagName("creationyear").item(0)!= null) {
+					xmlsummary.println("<CreationYear>" + eElement.getElementsByTagName("creationyear").item(0).getTextContent() + "</CreationYear>");
+					}
+				
 					xmlsummary.println("<Module>" + eElement.getElementsByTagName("reportingModule").item(0).getTextContent() + "</Module>");
 					xmlsummary.println("<Status>" + eElement.getElementsByTagName("status").item(0).getTextContent() + "</Status>");
 

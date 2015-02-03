@@ -33,6 +33,7 @@ public class XslStyleSheets {
 		// xslStyle.println("<h4>JHOVE Examination per File</h4>");
 
 		xslStyle.println("<th>FileName</th>");
+		xslStyle.println("<th>Year of Creation</th>");
 		xslStyle.println("<th>Jhove Module</th>");
 		xslStyle.println("<th>Status</th>");
 		xslStyle.println("<th>JhoveMessages</th>");
@@ -45,6 +46,7 @@ public class XslStyleSheets {
 		xslStyle.println("<xsl:if test=\"Status[contains(text(),'Not')]\">");
 		xslStyle.println("<tr class=\"captiondred\">");
 		xslStyle.println("<td><i><xsl:value-of select=\"FileName\"/></i></td>");
+		xslStyle.println("<td><xsl:value-of select=\"CreationYear\"/></td>");
 		xslStyle.println("<td><xsl:value-of select=\"Module\"/></td>");
 		xslStyle.println("<td><xsl:value-of select=\"Status\"/></td>");
 		xslStyle.println("<td><xsl:value-of select=\"JhoveMessages\"/></td>");
@@ -56,6 +58,7 @@ public class XslStyleSheets {
 		xslStyle.println("<xsl:if test=\"Status[contains(text(),'not')]\">");
 		xslStyle.println("<tr class=\"captionred\">");
 		xslStyle.println("<td><i><xsl:value-of select=\"FileName\" /></i></td>");
+		xslStyle.println("<td><xsl:value-of select=\"CreationYear\"/></td>");
 		xslStyle.println("<td><xsl:value-of select=\"Module\"/></td>");
 		xslStyle.println("<td><xsl:value-of select=\"Status\" /></td>");
 		xslStyle.println("<td><xsl:value-of select=\"JhoveMessages\" /></td>");
@@ -67,6 +70,7 @@ public class XslStyleSheets {
 		xslStyle.println("<xsl:if test=\"Status[contains(text(),'and')]\">");
 		xslStyle.println("<tr class=\"captiongreen\">");
 		xslStyle.println("<td><i><xsl:value-of select=\"FileName\" /></i></td>");
+		xslStyle.println("<td><xsl:value-of select=\"CreationYear\"/></td>");
 		xslStyle.println("<td><xsl:value-of select=\"Module\"/></td>");
 		xslStyle.println("<td><xsl:value-of select=\"Status\" /></td>");
 		xslStyle.println("<td><xsl:value-of select=\"JhoveMessages\" /></td>");

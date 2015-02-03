@@ -269,6 +269,7 @@ public class GenericFileAnalysis {
 
 	public static boolean testFileHeaderJpeg2000(String string) {
 		// TODO Auto-generated method stub
+		//do not know yet how to test
 		return true;
 	}
 

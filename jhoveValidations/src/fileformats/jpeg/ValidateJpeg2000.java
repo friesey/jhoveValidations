@@ -1,14 +1,20 @@
 package fileformats.jpeg;
 
 import java.awt.BorderLayout;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
+import org.apache.sanselan.*;
+import org.apache.sanselan.common.IImageMetadata;
+import org.apache.sanselan.formats.jpeg.JpegImageMetadata;
 
 import edu.harvard.hul.ois.jhove.App;
 import edu.harvard.hul.ois.jhove.JhoveBase;
@@ -82,22 +88,25 @@ public class ValidateJpeg2000 {
 				for (int i = 0; i < files.size(); i++) {
 					String extension = validatorUtilities.fileStringUtilities.getExtension(files.get(i).toString());
 					extension = extension.toLowerCase();
+
 					boolean isJpeg2000Extension = testExtension(extension);
 					if (isJpeg2000Extension == true) {
+
 						if (validatorUtilities.GenericFileAnalysis.testFileHeaderJpeg2000(files.get(i).toString()) == true) {
 							writer.println("<item>");
-							if (files.get(i).toString().contains("&")) {
-								String substitute = validatorUtilities.genericUtilities.normaliseToUtf8(files.get(i).toString());
-								writer.println("<filename>" + substitute + "</filename>");
-							} else {
-								writer.println("<filename>" + files.get(i).toString() + "</filename>");
-							}
+							String substitute = validatorUtilities.fileStringUtilities.getFileName(files.get(i).toString());
+							substitute = validatorUtilities.fileStringUtilities.reduceXmlEscapors(substitute);
+							writer.println("<filename>" + substitute + "</filename>");
+
+							addSomeMetadata(files.get(i));
+
 							jb.process(app, module, handler, files.get(i).toString());
 							writer.println("</item>");
 						}
 					}
 				}
 				writer.println("</JhoveFindings>");
+
 				writer.close();
 				outputs.XmlParserJhove.parseXmlFile(pathwriter);
 
@@ -109,15 +118,23 @@ public class ValidateJpeg2000 {
 		}
 	}
 
+	private static void addSomeMetadata(File jpeg2000File) throws ImageReadException, IOException {
+
+		// TODO: It would be nice to have the creation year. I can only find
+		// lastmodified
+
+		// System.out.println (jpeg2000File.lastModified());
+
+	}
+
 	private static boolean testExtension(String extension) {
 
 		String[] extensionJpeg2000 = { "jp2", "j2k", "jpf", "jpg2", "jpx", "jpm", "mj2", "mjp2" };
 
-		for (int i = 0; i < extensionJpeg2000.length; ) {
+		for (int i = 0; i < extensionJpeg2000.length;) {
 			if (extension.equals(extensionJpeg2000[i])) {
 				return true;
-			}
-			else {
+			} else {
 				i++;
 			}
 		}

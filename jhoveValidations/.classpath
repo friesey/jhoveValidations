@@ -4,5 +4,15 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="lib" path="C:/Users/Friese Yvonne/jhove/bin/JhoveApp.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Friese Yvonne/.m2/repository/com/lowagie/itext/2.1.7/itext-2.1.7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Friese Yvonne/.m2/repository/sanselan_z.jar/sanselan_z.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Friese Yvonne/.m2/repository/org/apache/sanselan/sanselan/0.97-incubator/sanselan-0.97-incubator.jar" sourcepath="C:/Users/Friese Yvonne/.m2/repository/org/apache/sanselan/sanselan/0.97-incubator/sanselan-0.97-incubator-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="org.apache.sanselan"/>
+			<attribute name="maven.artifactId" value="sanselan"/>
+			<attribute name="maven.version" value="0.97-incubator"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

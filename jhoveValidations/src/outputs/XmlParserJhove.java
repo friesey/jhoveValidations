@@ -66,6 +66,10 @@ public class XmlParserJhove {
 					if (eElement.getElementsByTagName("creationyear").item(0)!= null) {
 					xmlsummary.println("<CreationYear>" + eElement.getElementsByTagName("creationyear").item(0).getTextContent() + "</CreationYear>");
 					}
+					
+					if (eElement.getElementsByTagName("creationsoftware").item(0)!= null) {
+					xmlsummary.println("<CreationSoftware>" + eElement.getElementsByTagName("creationsoftware").item(0).getTextContent() + "</CreationSoftware>");
+					}
 				
 					xmlsummary.println("<Module>" + eElement.getElementsByTagName("reportingModule").item(0).getTextContent() + "</Module>");
 					xmlsummary.println("<Status>" + eElement.getElementsByTagName("status").item(0).getTextContent() + "</Status>");

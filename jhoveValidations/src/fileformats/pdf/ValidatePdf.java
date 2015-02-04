@@ -6,13 +6,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Map;
-
+import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import com.lowagie.text.pdf.PdfReader;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 
 import edu.harvard.hul.ois.jhove.App;
 import edu.harvard.hul.ois.jhove.JhoveBase;
@@ -94,7 +95,12 @@ public class ValidatePdf {
 						substitute = validatorUtilities.fileStringUtilities.reduceXmlEscapors(substitute);
 						writer.println("<filename>" + substitute + "</filename>");
 
-						addSomeMetadata(files.get(i).toString());
+						PDDocument pd = new PDDocument(); //TODO
+						pd = PDDocument.load(files.get(i));
+
+						PDDocumentInformation info = pd.getDocumentInformation();
+						addSomeMetadata(info);
+						pd.close();
 
 						jb.process(app, module, handler, files.get(i).toString());
 						writer.println("</item>");
@@ -112,29 +118,21 @@ public class ValidatePdf {
 		}
 	}
 
-	private static void addSomeMetadata(String pdfFile) throws IOException {
+	private static void addSomeMetadata(PDDocumentInformation info) throws IOException {
+		try {
+			Calendar creationYear = info.getCreationDate();
+			Date creationYearDate = creationYear.getTime();
+			int len = creationYearDate.toString().length();
+			String year = creationYearDate.toString().substring(len - 4, len);
+			String creationSoftware = validatorUtilities.fileStringUtilities.reduceXmlEscapors(info.getProducer());
 
-		PdfReader reader = new PdfReader(pdfFile);
+			writer.println("<creationyear>" + year + "</creationyear>");
+			writer.println("<creationsoftware>" + creationSoftware + "</creationsoftware>");
+		}
 
-		if (reader != null) {
-			Map<String, String> metadata = reader.getInfo();
-
-			if (metadata.get("CreationDate") != null) {
-				if (metadata.get("CreationDate").length() > 10) {
-					String creationYear = getYear(metadata.get("CreationDate"));
-					int creationYearInt = Integer.parseInt(creationYear);
-					if (creationYearInt > 1992) {
-						writer.println("<creationyear>" + creationYear + "</creationyear>");
-					}
-				}
-			}
+		catch (Exception e) {
+			writer.println("<creationyear>" + "</creationyear>");
+			writer.println("<creationsoftware>" + "</creationsoftware>");
 		}
 	}
-
-	private static String getYear(String creationYear) {
-		creationYear = creationYear.replace("D:", "");
-		String year = creationYear.substring(0, 4);
-		return year;
-	}
-
 }

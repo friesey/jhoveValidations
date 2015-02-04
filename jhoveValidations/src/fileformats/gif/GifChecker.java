@@ -23,7 +23,7 @@ public class GifChecker {
 	public static String folder;
 
 	public static void main(String args[]) throws Exception {
-		// test
+	
 		try {
 			boolean gifisvalid = false;
 			// JOptionPane.showMessageDialog(null,

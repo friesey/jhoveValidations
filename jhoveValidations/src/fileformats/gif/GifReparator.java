@@ -31,6 +31,7 @@ public class GifReparator {
 
 		// get the first image reader from the collection
 		javax.imageio.ImageReader reader = (ImageReader) imgReaders.next();
+		
 	
 		reader.setInput(iis, true);
 		ImageReadParam param = reader.getDefaultReadParam();	

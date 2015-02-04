@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -94,12 +95,10 @@ public class ValidatePdf {
 						String substitute = validatorUtilities.fileStringUtilities.getFileName(files.get(i).toString());
 						substitute = validatorUtilities.fileStringUtilities.reduceXmlEscapors(substitute);
 						writer.println("<filename>" + substitute + "</filename>");
-
-						PDDocument pd = new PDDocument(); //TODO
-						pd = PDDocument.load(files.get(i));
-
-						PDDocumentInformation info = pd.getDocumentInformation();
-						addSomeMetadata(info);
+									
+						PDDocument pd = PDDocument.load(files.get(i));
+						PDDocumentInformation info = pd.getDocumentInformation();						
+						addSomeMetadata(info);	
 						pd.close();
 
 						jb.process(app, module, handler, files.get(i).toString());
@@ -120,8 +119,11 @@ public class ValidatePdf {
 
 	private static void addSomeMetadata(PDDocumentInformation info) throws IOException {
 		try {
-			Calendar creationYear = info.getCreationDate();
-			Date creationYearDate = creationYear.getTime();
+			Calendar creationYear = info.getCreationDate();	
+	
+			Date creationYearDate = creationYear.getTime();		
+	
+			
 			int len = creationYearDate.toString().length();
 			String year = creationYearDate.toString().substring(len - 4, len);
 			String creationSoftware = validatorUtilities.fileStringUtilities.reduceXmlEscapors(info.getProducer());

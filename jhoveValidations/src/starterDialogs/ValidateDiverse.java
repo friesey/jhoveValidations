@@ -3,12 +3,18 @@ package starterDialogs;
 import java.awt.BorderLayout;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 
 import edu.harvard.hul.ois.jhove.App;
 import edu.harvard.hul.ois.jhove.JhoveBase;
@@ -36,6 +42,8 @@ public class ValidateDiverse {
 	static Module jpegmodule;
 	static OutputHandler handler;
 	public static String folder;
+
+	static PrintWriter writer;
 
 	public static void JhoveDiverseValidator() {
 
@@ -92,7 +100,7 @@ public class ValidateDiverse {
 
 				pathwriter = (folder + "//" + "JhoveExamination.xml");
 
-				PrintWriter writer = new PrintWriter(new FileWriter(pathwriter));
+				writer = new PrintWriter(new FileWriter(pathwriter));
 				handler.setWriter(writer);
 				handler.setBase(jb);
 
@@ -119,7 +127,6 @@ public class ValidateDiverse {
 
 				utf8Module.init("");
 				utf8Module.setDefaultParams(new ArrayList<String>());
-				
 
 				waveModule.init("");
 				waveModule.setDefaultParams(new ArrayList<String>());
@@ -161,6 +168,10 @@ public class ValidateDiverse {
 							jb.process(app, jpegModule, handler, files.get(i).toString());
 							break;
 						case "pdf":
+							PDDocument pd = PDDocument.load(files.get(i));
+							PDDocumentInformation info = pd.getDocumentInformation();						
+							addSomeMetadata(info);
+							pd.close();
 							jb.process(app, pdfModule, handler, files.get(i).toString());
 							break;
 						case "tif":
@@ -199,6 +210,25 @@ public class ValidateDiverse {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e, "error message", JOptionPane.ERROR_MESSAGE);
 
+		}
+	}
+
+	private static void addSomeMetadata(PDDocumentInformation info) throws IOException {
+		try {	
+			Calendar creationYear = info.getCreationDate();			
+			Date creationYearDate = creationYear.getTime();
+			int len = creationYearDate.toString().length();
+			String year = creationYearDate.toString().substring(len - 4, len);
+			String creationSoftware = validatorUtilities.fileStringUtilities.reduceXmlEscapors(info.getProducer());
+
+			writer.println("<creationyear>" + year + "</creationyear>");
+			writer.println("<creationsoftware>" + creationSoftware + "</creationsoftware>");
+		}
+
+		catch (Exception e) {
+			System.out.println("TestCatch");
+			writer.println("<creationyear>" + "</creationyear>");
+			writer.println("<creationsoftware>" + "</creationsoftware>");
 		}
 	}
 }

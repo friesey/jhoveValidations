@@ -15,54 +15,52 @@ public class Jhove2ValidatorTestTiff {
 
 	static String folder;
 
-	public static void JhoveTiffValidator() {
+	public static void main(String args[]) throws Exception {
 		String pathwriter;
-		try {
-			folder = starterDialogs.JhoveGuiStarterDialog.jhoveExaminationFolder;
-			if (folder != null) {
+		
 
-				String xmlVersion = "xml version='1.0'";
-				String xmlEncoding = "encoding='ISO-8859-1'";
+		folder = validatorUtilities.BrowserDialogs.chooseFolder();
+		if (folder != null) {
 
-				pathwriter = (folder + "//" + "Jhove2Exam.xml");
-				PrintWriter writer = new PrintWriter(new FileWriter(pathwriter));
+			String xmlVersion = "xml version='1.0'";
+			String xmlEncoding = "encoding='ISO-8859-1'";
 
-				writer.println("<?" + xmlVersion + " " + xmlEncoding + "?>");
-				writer.println("<JhoveFindings>");
+			pathwriter = (folder + "//" + "Jhove2Exam.xml");
+			PrintWriter writer = new PrintWriter(new FileWriter(pathwriter));
 
-				ArrayList<File> files = validatorUtilities.ListsFiles.getPaths(new File(folder), new ArrayList<File>());
+			writer.println("<?" + xmlVersion + " " + xmlEncoding + "?>");
+			writer.println("<JhoveFindings>");
 
-				JHOVE2 JHOVE2 = new JHOVE2();
+			ArrayList<File> files = validatorUtilities.ListsFiles.getPaths(new File(folder), new ArrayList<File>());
 
-				for (int i = 0; i < files.size(); i++) {
-					if (validatorUtilities.GenericFileAnalysis.testFileHeaderTiff(files.get(i)) == true) {
+			JHOVE2 JHOVE2 = new JHOVE2();
 
-						// Source source = SourceFactory.getSource(JHOVE2,
-						// files.get(i).toString());
+			for (int i = 0; i < files.size(); i++) {
+				if (validatorUtilities.GenericFileAnalysis.testFileHeaderTiff(files.get(i)) == true) {
 
-						Source source = JHOVE2.getSourceFactory().getSource(JHOVE2, files.get(i).toString());
-						source.addModule(JHOVE2);
-						Input input = source.getInput(JHOVE2);
-						JHOVE2.characterize(source, input);
+					// Source source = SourceFactory.getSource(JHOVE2,
+					// files.get(i).toString());
 
-						/*
-						 * String title = "title"; Document.Type type =
-						 * Document.Type.getType(); Document.Intention intention
-						 * = "int";
-						 * 
-						 * Document tiffdoc = new Document(title, type,
-						 * intention);
-						 */
+					System.out.println(JHOVE2.toString());
+					System.out.println(files.get(i).toString());
+					
+					Source source = JHOVE2.getSourceFactory().getSource(JHOVE2, files.get(i).toString()); //Nullpointerexception
+					source.addModule(JHOVE2);
+					Input input = source.getInput(JHOVE2);
+					JHOVE2.characterize(source, input);
 
-					}
+					/*
+					 * String title = "title"; Document.Type type =
+					 * Document.Type.getType(); Document.Intention intention =
+					 * "int";
+					 * 
+					 * Document tiffdoc = new Document(title, type, intention);
+					 */
+
 				}
-				writer.close();
 			}
-
+			writer.close();
 		}
 
-		catch (Exception e) {
-
-		}
 	}
 }

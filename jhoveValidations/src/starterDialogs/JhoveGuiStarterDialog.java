@@ -19,7 +19,7 @@ public class JhoveGuiStarterDialog {
 
 	public static void main(String args[]) throws Exception {
 		changecolor();
-		String path = "D://Eclipse New//jhove-logo_small.gif";
+		String path = "D://Eclipse__Jython__Py_dev//jhove-logo_small.gif";
 		String description = "JHOVE Logo";
 		ImageIcon icon = new ImageIcon(path, description);
 

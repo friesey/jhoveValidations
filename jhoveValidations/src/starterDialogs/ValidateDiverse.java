@@ -130,6 +130,9 @@ public class ValidateDiverse {
 
 				waveModule.init("");
 				waveModule.setDefaultParams(new ArrayList<String>());
+				
+				asciiModule.init("");
+				asciiModule.setDefaultParams(new ArrayList<String>());
 
 				htmlModule.init("");
 				htmlModule.setDefaultParams(new ArrayList<String>());

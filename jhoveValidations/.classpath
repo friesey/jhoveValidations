@@ -16,5 +16,13 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/Friese Yvonne/.m2/pdfbox-app-1.8.8.jar"/>
 	<classpathentry kind="lib" path="D:/jhove2-2.1.0/lib/jhove2-2.1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Friese Yvonne/.m2/droid-core-5.0.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Friese Yvonne/.m2/droid-export-5.0.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Friese Yvonne/.m2/droid-export-interfaces-5.0.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Friese Yvonne/.m2/droid-help-5.0.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Friese Yvonne/.m2/droid-interfaces-5.0.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Friese Yvonne/.m2/droid-report-5.0.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Friese Yvonne/.m2/droid-report-interfaces-5.0.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Friese Yvonne/.m2/droid-results-5.0.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

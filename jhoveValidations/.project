@@ -14,4 +14,11 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>uk</name>
+			<type>2</type>
+			<location>C:/Users/Friese Yvonne/.m2/uk</location>
+		</link>
+	</linkedResources>
 </projectDescription>

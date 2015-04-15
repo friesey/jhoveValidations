@@ -27,7 +27,7 @@ public class TestDroid {
 		}
 
 		Droid droid = null;
-		try {
+
 
 			droid = new Droid();
 			droid.readSignatureFile(signaturefileV81);
@@ -44,8 +44,6 @@ public class TestDroid {
 
 			System.out.println(puid);
 
-		} catch (Exception e) {
-			System.out.println(e);
-		}
+	
 	}
 }

@@ -15,6 +15,16 @@ public class TestDroid {
 		File testfile = new File(test);
 
 		String signaturefileV81 = "C://Users//Friese Yvonne//.m2//DROID_SignatureFile_V81.xml";
+		
+							
+		// Fehlermeldungen, sollte die SignatureFile nicht am angegeben Ort sein
+		if ( signaturefileV81 == null ) {
+			System.out.println("Die SignatureFile existier nicht am angegeben Ort (null): " + signaturefileV81);
+		}
+		File fnameOfSignature = new File( signaturefileV81 );
+		if ( !fnameOfSignature.exists() ) {
+			System.out.println("Die SignatureFile existier nicht am angegeben Ort: " + signaturefileV81);
+		}
 
 		Droid droid = null;
 		try {

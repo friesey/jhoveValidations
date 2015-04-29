@@ -1,7 +1,9 @@
 package fileformats.tiff;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
@@ -34,35 +36,35 @@ public class Jhove2ValidatorTestTiff {
 
 			JHOVE2 jhove2 = new JHOVE2();
 
-	
+			for (int i = 0; i < files.size(); i++) {
+				if (validatorUtilities.GenericFileAnalysis.testFileHeaderTiff(files.get(i)) == true) {
 
-				for (int i = 0; i < files.size(); i++) {
-					if (validatorUtilities.GenericFileAnalysis.testFileHeaderTiff(files.get(i)) == true) {
+					// Source source = SourceFactory.getSource(JHOVE2,
+					// files.get(i).toString());
+					
+					InputStream stream = new FileInputStream(files.get(i).toString());			
+					
+					System.out.println(files.get(i).toString());			
 
-						// Source source = SourceFactory.getSource(JHOVE2,
-						// files.get(i).toString());
+					SourceFactory factory = jhove2.getSourceFactory();
 
-						System.out.println(jhove2.toString());
-						System.out.println(files.get(i).toString());
+					Source source = factory.getSource(jhove2, stream, files.get(i).toString(), null); //nullpointerexception
 
-						Source source = jhove2.getSourceFactory().getSource(jhove2, files.get(i).toString()); // Nullpointerexception
-						source.addModule(jhove2);
-						Input input = source.getInput(jhove2);
-						jhove2.characterize(source, input);
+					source.addModule(jhove2);
+					Input input = source.getInput(jhove2);
+					jhove2.characterize(source, input);
 
-						/*
-						 * String title = "title"; Document.Type type =
-						 * Document.Type.getType(); Document.Intention intention
-						 * = "int";
-						 * 
-						 * Document tiffdoc = new Document(title, type,
-						 * intention);
-						 */
+					/*
+					 * String title = "title"; Document.Type type =
+					 * Document.Type.getType(); Document.Intention intention =
+					 * "int";
+					 * 
+					 * Document tiffdoc = new Document(title, type, intention);
+					 */
 
-					}
 				}
-				writer.close();
-		
+			}
+			writer.close();
 		}
 
 	}

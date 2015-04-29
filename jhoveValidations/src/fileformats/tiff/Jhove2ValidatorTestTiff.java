@@ -17,7 +17,6 @@ public class Jhove2ValidatorTestTiff {
 
 	public static void main(String args[]) throws Exception {
 		String pathwriter;
-		
 
 		folder = validatorUtilities.BrowserDialogs.chooseFolder();
 		if (folder != null) {
@@ -33,33 +32,37 @@ public class Jhove2ValidatorTestTiff {
 
 			ArrayList<File> files = validatorUtilities.ListsFiles.getPaths(new File(folder), new ArrayList<File>());
 
-			JHOVE2 JHOVE2 = new JHOVE2();
+			JHOVE2 jhove2 = new JHOVE2();
 
-			for (int i = 0; i < files.size(); i++) {
-				if (validatorUtilities.GenericFileAnalysis.testFileHeaderTiff(files.get(i)) == true) {
+	
 
-					// Source source = SourceFactory.getSource(JHOVE2,
-					// files.get(i).toString());
+				for (int i = 0; i < files.size(); i++) {
+					if (validatorUtilities.GenericFileAnalysis.testFileHeaderTiff(files.get(i)) == true) {
 
-					System.out.println(JHOVE2.toString());
-					System.out.println(files.get(i).toString());
-					
-					Source source = JHOVE2.getSourceFactory().getSource(JHOVE2, files.get(i).toString()); //Nullpointerexception
-					source.addModule(JHOVE2);
-					Input input = source.getInput(JHOVE2);
-					JHOVE2.characterize(source, input);
+						// Source source = SourceFactory.getSource(JHOVE2,
+						// files.get(i).toString());
 
-					/*
-					 * String title = "title"; Document.Type type =
-					 * Document.Type.getType(); Document.Intention intention =
-					 * "int";
-					 * 
-					 * Document tiffdoc = new Document(title, type, intention);
-					 */
+						System.out.println(jhove2.toString());
+						System.out.println(files.get(i).toString());
 
+						Source source = jhove2.getSourceFactory().getSource(jhove2, files.get(i).toString()); // Nullpointerexception
+						source.addModule(jhove2);
+						Input input = source.getInput(jhove2);
+						jhove2.characterize(source, input);
+
+						/*
+						 * String title = "title"; Document.Type type =
+						 * Document.Type.getType(); Document.Intention intention
+						 * = "int";
+						 * 
+						 * Document tiffdoc = new Document(title, type,
+						 * intention);
+						 */
+
+					}
 				}
-			}
-			writer.close();
+				writer.close();
+		
 		}
 
 	}

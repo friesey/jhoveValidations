@@ -24,19 +24,36 @@ public class XslStyleSheets {
 
 		xslStyle.println("<body>");
 		xslStyle.println("<h2>Jhove 2 Trim</h2>");
+		
+		xslStyle.println("<table border =\"1\">");
+		xslStyle.println("<tr class=\"captiongreen\">");
+
+		xslStyle.println("<th>Filepath</th>");
+		xslStyle.println("<th>Filesize</th>");
+
+		xslStyle.println("</tr>");
+		
+		xslStyle.println("<xsl:for-each select=\"Jhove2Trim/File\">");
+		xslStyle.println("<tr class=\"captiongreen\">");
+		xslStyle.println("<td><xsl:value-of select=\"Filename\"/></td>");
+		xslStyle.println("<td><xsl:value-of select=\"Filesize\"/></td>");
+		xslStyle.println("</tr>");
+		xslStyle.println("</xsl:for-each>");
+		xslStyle.println("</table>");
+		
 		xslStyle.println("<table border =\"1\">");
 		xslStyle.println("<tr class=\"captiontan\">");
-		
-		xslStyle.println("<th>Tag Information</th>");
+
 		xslStyle.println("<th>Error Number</th>");
+		xslStyle.println("<th>Tag Information</th>");
 
 		xslStyle.println("</tr>");
 		xslStyle.println("<xsl:for-each select=\"Jhove2Trim/Tags/Error\">");
 		xslStyle.println("<tr class=\"captiondred\">");
-		xslStyle.println("<td><xsl:value-of select=\"TagInformation\"/></td>");
 		xslStyle.println("<td><xsl:value-of select=\"TagNumber\"/></td>");
+		xslStyle.println("<td><xsl:value-of select=\"TagInformation\"/></td>");
 		xslStyle.println("</tr>");
-		
+
 		xslStyle.println("</xsl:for-each>");
 		xslStyle.println("</table>");
 		xslStyle.println("</body>");

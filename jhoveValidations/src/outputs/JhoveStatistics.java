@@ -94,6 +94,8 @@ public class JhoveStatistics {
 		// element will be counted
 
 		ArrayList<String> originerrors = new ArrayList<String>();
+	
+		
 		for (i = 0; i < errorlist.size(); i++) { // There might be a
 													// pre-defined
 													// function for this

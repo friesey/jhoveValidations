@@ -30,13 +30,14 @@ public class XslStyleSheets {
 
 		xslStyle.println("<th>Filepath</th>");
 		xslStyle.println("<th>Filesize</th>");
-
+		xslStyle.println("<th>Different Tag Errors</th>");
 		xslStyle.println("</tr>");
 		
 		xslStyle.println("<xsl:for-each select=\"Jhove2Trim/File\">");
 		xslStyle.println("<tr class=\"captiongreen\">");
 		xslStyle.println("<td><xsl:value-of select=\"Filename\"/></td>");
 		xslStyle.println("<td><xsl:value-of select=\"Filesize\"/></td>");
+		xslStyle.println("<td><xsl:value-of select=\"DifferentTagErrors\"/></td>");
 		xslStyle.println("</tr>");
 		xslStyle.println("</xsl:for-each>");
 		xslStyle.println("</table>");

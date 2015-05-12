@@ -6,6 +6,47 @@ import java.io.PrintWriter;
 
 public class XslStyleSheets {
 
+	public static void Jhove2TrimXsl() throws IOException {
+		PrintWriter xslStyle = new PrintWriter(new FileWriter("C://jhove2-2.1.0//Jhove2Trim.xsl"));
+
+		xslStyle.println("<?xml version=\"1.0\"?>");
+		xslStyle.println("<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">");
+		xslStyle.println("<xsl:template match=\"/\">");
+		xslStyle.println("<html>");
+		xslStyle.println("<head>");
+		xslStyle.println("<style>");
+		xslStyle.println("tr.captiondred {background-color: #FF0000}");
+		xslStyle.println("tr.captionred {background-color: #CD5C5C}");
+		xslStyle.println("tr.captiongreen {background-color: #006400}");
+		xslStyle.println("tr.captiontan {background-color: #FFDEAD}");
+		xslStyle.println("</style>");
+		xslStyle.println("</head>");
+
+		xslStyle.println("<body>");
+		xslStyle.println("<h2>Jhove 2 Trim</h2>");
+		xslStyle.println("<table border =\"1\">");
+		xslStyle.println("<tr class=\"captiontan\">");
+		
+		xslStyle.println("<th>Tag Information</th>");
+		xslStyle.println("<th>Error Number</th>");
+
+		xslStyle.println("</tr>");
+		xslStyle.println("<xsl:for-each select=\"Jhove2Trim/Tags/Error\">");
+		xslStyle.println("<tr class=\"captiondred\">");
+		xslStyle.println("<td><xsl:value-of select=\"TagInformation\"/></td>");
+		xslStyle.println("<td><xsl:value-of select=\"TagNumber\"/></td>");
+		xslStyle.println("</tr>");
+		
+		xslStyle.println("</xsl:for-each>");
+		xslStyle.println("</table>");
+		xslStyle.println("</body>");
+		xslStyle.println("</html>");
+		xslStyle.println("</xsl:template>");
+		xslStyle.println("</xsl:stylesheet>");
+		xslStyle.close();
+
+	}
+
 	public static void JhoveCustomizedXsl() throws IOException {
 
 		PrintWriter xslStyle = new PrintWriter(new FileWriter(starterDialogs.JhoveGuiStarterDialog.jhoveExaminationFolder + "//" + "JhoveCustomized.xsl"));
@@ -23,8 +64,8 @@ public class XslStyleSheets {
 		xslStyle.println("</style>");
 		xslStyle.println("</head>");
 
-		xslStyle.println("<body>");		
-		
+		xslStyle.println("<body>");
+
 		xslStyle.println("<h2>Jhove Validation Findings</h2>");
 
 		// xslStyle.println("<h1>PDF files examined by JHOVE</h1>");
@@ -85,7 +126,7 @@ public class XslStyleSheets {
 		xslStyle.println("</xsl:if>	");
 		xslStyle.println("</xsl:for-each>");
 		xslStyle.println("</table>");
-		
+
 		xslStyle.println("<h2>Summary of all found Error messages</h2>");
 
 		xslStyle.println("<table border=\"1\">");
@@ -110,9 +151,9 @@ public class XslStyleSheets {
 	}
 
 	public static void GifJhoveCustomizedXsl() throws IOException {
-		
-		PrintWriter xslStyle = new PrintWriter(new FileWriter(starterDialogs.JhoveGuiStarterDialog.jhoveExaminationFolder + "//" + "GifJhoveCustomized.xsl"));		
-				
+
+		PrintWriter xslStyle = new PrintWriter(new FileWriter(starterDialogs.JhoveGuiStarterDialog.jhoveExaminationFolder + "//" + "GifJhoveCustomized.xsl"));
+
 		xslStyle.println("<?xml version=\"1.0\"?>");
 		xslStyle.println("<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">");
 		xslStyle.println("<xsl:template match=\"JhoveFindingsSummary\">");

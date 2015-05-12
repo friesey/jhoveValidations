@@ -2,8 +2,10 @@ package outputs;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class Jhove2Outputs {
@@ -27,10 +29,25 @@ public class Jhove2Outputs {
 			lines.add(line);
 		}
 		
+		
+		PrintWriter xmlsummary = new PrintWriter(new FileWriter(("C://jhove2-2.1.0//Jhove2Trim.xml")));		
+
+		String xmlVersion = "xml version='1.0'";
+		String xmlEncoding = "encoding='ISO-8859-1'";
+		String xmlxslStyleSheet = "<?xml-stylesheet type=\"text/xsl\" href=\"Jhove2Trim.xsl\"?>";
+
+		xmlsummary.println("<?" + xmlVersion + " " + xmlEncoding + "?>");
+		xmlsummary.println(xmlxslStyleSheet);
+		xmlsummary.println("<Jhove2Trim>");
+
+		outputs.XslStyleSheets.Jhove2TrimXsl();
+		
 		int tagerror = 0;
 		
+	
 		int len = lines.size();
-		for (int i = 0; i < len; i++) {
+		xmlsummary.println("<Tags>");
+		for (int i = 0; i < len; i++) {			
 			if (lines.get(i).contains("[WARNING/OBJECT]")) {
 				tagerror++;
 				String temp = lines.get(i);
@@ -39,13 +56,18 @@ public class Jhove2Outputs {
 				temp = temp.replace("   ","");	
 				temp = temp.replace("  ","");		
 				temp = temp.replace(" Missing","Missing");		
-		
-				System.out.println(temp);
+				
+				xmlsummary.println("<Error>");
+				xmlsummary.println("<TagInformation>" + temp + "</TagInformation>");
+				xmlsummary.println("<TagNumber>" + tagerror + "</TagNumber>");	
+				xmlsummary.println("</Error>");
 			}
 		}
-		
-		System.out.println(tagerror);
+		xmlsummary.println("</Tags>");		
+
 		
 		reader.close();
+		xmlsummary.println("</Jhove2Trim>");
+		xmlsummary.close();
 	}
 }

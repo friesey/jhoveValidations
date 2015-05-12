@@ -1,7 +1,6 @@
 package outputs;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,7 +13,7 @@ public class Jhove2Outputs {
 		// String jhove2OutputFile =
 		// validatorUtilities.BrowserDialogs.chooseFile();
 
-		String jhove2Output = "C://jhove2-2.1.0//outnew.xml";
+		String jhove2Output = "C://jhove2-2.1.0//outtrimtrim.xml";
 		
 		FileInputStream inputStream = new FileInputStream(jhove2Output);
 		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));		

@@ -1,7 +1,6 @@
 package fileformats.jpeg;
 
 import java.awt.BorderLayout;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,9 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import org.apache.sanselan.*;
-import org.apache.sanselan.common.IImageMetadata;
-import org.apache.sanselan.formats.jpeg.JpegImageMetadata;
-
 import edu.harvard.hul.ois.jhove.App;
 import edu.harvard.hul.ois.jhove.JhoveBase;
 import edu.harvard.hul.ois.jhove.Module;
@@ -31,7 +27,7 @@ public class ValidateJpeg2000 {
 	static OutputHandler handler;
 	public static String folder;
 
-	public static void JhoveJpeg2000Validator() {
+	public static void JhoveJpeg2000Validator() throws Exception {
 
 		String pathwriter;
 

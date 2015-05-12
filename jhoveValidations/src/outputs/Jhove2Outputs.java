@@ -13,11 +13,8 @@ public class Jhove2Outputs {
 
 	public static void main(String args[]) throws IOException {
 
-		// String jhove2OutputFile =
-		// validatorUtilities.BrowserDialogs.chooseFile();
-
-		String jhove2Output = "C://jhove2-2.1.0//outtrimtrim.xml";
-
+		 String jhove2Output =	validatorUtilities.BrowserDialogs.chooseFile(); //choose JHOVE2 Output XML file
+	
 		FileInputStream inputStream = new FileInputStream(jhove2Output);
 		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 		String line;
@@ -30,7 +27,7 @@ public class Jhove2Outputs {
 			lines.add(line);
 		}
 
-		PrintWriter xmlsummary = new PrintWriter(new FileWriter(("C://jhove2-2.1.0//Jhove2Trim.xml")));
+		PrintWriter xmlsummary = new PrintWriter(new FileWriter(("C://jhove2-2.1.0//Jhove2Trim.xml"))); //not hard coded please
 
 		String xmlVersion = "xml version='1.0'";
 		String xmlEncoding = "encoding='ISO-8859-1'";
@@ -79,6 +76,8 @@ public class Jhove2Outputs {
 			originerrors.add(errorlist.get(j));
 		}
 		
+		int errorsum = originerrors.size();
+		
 		int i = 0;
 		while (i < errorlist.size() - 1) {
 			if (errorlist.get(i).equals(errorlist.get(i + 1))) {
@@ -112,7 +111,7 @@ public class Jhove2Outputs {
 		
 		}
 		xmlsummary.println("<DifferentTagErrors>" + errorlist.size() + "</DifferentTagErrors>");
-
+		xmlsummary.println("<SumErrors>" + errorsum + "</SumErrors>");
 		xmlsummary.println("</File>");
 		
 		xmlsummary.println("<Summary>");

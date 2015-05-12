@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 public class XslStyleSheets {
 
 	public static void Jhove2TrimXsl() throws IOException {
-		PrintWriter xslStyle = new PrintWriter(new FileWriter("C://jhove2-2.1.0//Jhove2Trim.xsl"));
+		PrintWriter xslStyle = new PrintWriter(new FileWriter("C://jhove2-2.1.0//Jhove2Trim.xsl")); //not hard coded please
 
 		xslStyle.println("<?xml version=\"1.0\"?>");
 		xslStyle.println("<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">");
@@ -24,24 +24,49 @@ public class XslStyleSheets {
 
 		xslStyle.println("<body>");
 		xslStyle.println("<h2>Jhove 2 Trim</h2>");
-		
+
 		xslStyle.println("<table border =\"1\">");
 		xslStyle.println("<tr class=\"captiongreen\">");
 
 		xslStyle.println("<th>Filepath</th>");
 		xslStyle.println("<th>Filesize</th>");
 		xslStyle.println("<th>Different Tag Errors</th>");
+		xslStyle.println("<th>Sum of all Tag Errors</th>");
 		xslStyle.println("</tr>");
-		
+
 		xslStyle.println("<xsl:for-each select=\"Jhove2Trim/File\">");
 		xslStyle.println("<tr class=\"captiongreen\">");
 		xslStyle.println("<td><xsl:value-of select=\"Filename\"/></td>");
 		xslStyle.println("<td><xsl:value-of select=\"Filesize\"/></td>");
 		xslStyle.println("<td><xsl:value-of select=\"DifferentTagErrors\"/></td>");
+		xslStyle.println("<td><xsl:value-of select=\"SumErrors\"/></td>");
+		xslStyle.println("</tr>");
+		xslStyle.println("</xsl:for-each>");
+		xslStyle.println("</table>");
+
+		xslStyle.println("<h2>Tag Errors and Occurances</h2>");
+
+		xslStyle.println("<table border =\"1\">");
+		xslStyle.println("<tr class=\"captiondred\">");
+
+		xslStyle.println("<th>Tag Error</th>");
+		xslStyle.println("<th>Occurance</th>");
+		xslStyle.println("</tr>");
+
+		xslStyle.println("<xsl:for-each select=\"Jhove2Trim/Summary/Entry\">");
+		xslStyle.println("<xsl:sort select=\"Occurance\" />");
+		// TODO: sorts in alphabetic order
+		xslStyle.println("<tr class=\"captiondred\">");
+		xslStyle.println("<td><xsl:value-of select=\"TagError\"/></td>");
+		xslStyle.println("<td><xsl:value-of select=\"Occurance\"/></td>");
 		xslStyle.println("</tr>");
 		xslStyle.println("</xsl:for-each>");
 		xslStyle.println("</table>");
 		
+		//The 3rd table is not really necessary
+		
+/*		xslStyle.println("<h2>Listing of all Tag Errors</h2>");
+
 		xslStyle.println("<table border =\"1\">");
 		xslStyle.println("<tr class=\"captiontan\">");
 
@@ -54,9 +79,9 @@ public class XslStyleSheets {
 		xslStyle.println("<td><xsl:value-of select=\"TagNumber\"/></td>");
 		xslStyle.println("<td><xsl:value-of select=\"TagInformation\"/></td>");
 		xslStyle.println("</tr>");
-
 		xslStyle.println("</xsl:for-each>");
-		xslStyle.println("</table>");
+		xslStyle.println("</table>");*/
+		
 		xslStyle.println("</body>");
 		xslStyle.println("</html>");
 		xslStyle.println("</xsl:template>");

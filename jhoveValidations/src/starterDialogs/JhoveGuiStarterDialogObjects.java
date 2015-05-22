@@ -66,7 +66,7 @@ public class JhoveGuiStarterDialogObjects {
 
 				// the outputfiles files should not be examined
 				if ((!files.get(i).toString().contains("JhoveExamination")) && (!files.get(i).toString().contains("JhoveCustomized")) && (!files.get(i).toString().contains("JhovetemporaryFile"))) {
-			
+
 					JhoveFileObject temp = new JhoveFileObject();
 					temp.path = files.get(i).toString();
 
@@ -81,7 +81,7 @@ public class JhoveGuiStarterDialogObjects {
 					ObjectValidation.jhoveValidation(files.get(i));
 
 					Document doc = dBuilder.parse(ObjectValidation.pathwriter);
-					doc.getDocumentElement().normalize();			
+					doc.getDocumentElement().normalize();
 
 					NodeList nList = doc.getElementsByTagName("repInfo");
 
@@ -94,7 +94,7 @@ public class JhoveGuiStarterDialogObjects {
 							temp.status = eElement.getElementsByTagName("status").item(0).getTextContent();
 							System.out.println("Innerhalb der Schleife:" + temp.status);
 
-							temp.jhoveModul = eElement.getElementsByTagName("module").item(0).getTextContent();
+							temp.jhoveModul = eElement.getElementsByTagName("reportingModule").item(0).getTextContent();
 							System.out.println("Innerhalb der Schleife:" + temp.jhoveModul);
 
 						}

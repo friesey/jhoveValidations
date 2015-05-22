@@ -7,7 +7,10 @@ import java.io.PrintWriter;
 public class XslStyleSheets {
 
 	public static void Jhove2TrimXsl() throws IOException {
-		PrintWriter xslStyle = new PrintWriter(new FileWriter("C://jhove2-2.1.0//Jhove2Trim.xsl")); //not hard coded please
+		PrintWriter xslStyle = new PrintWriter(new FileWriter("C://jhove2-2.1.0//Jhove2Trim.xsl")); // not
+																									// hard
+																									// coded
+																									// please
 
 		xslStyle.println("<?xml version=\"1.0\"?>");
 		xslStyle.println("<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">");
@@ -62,26 +65,28 @@ public class XslStyleSheets {
 		xslStyle.println("</tr>");
 		xslStyle.println("</xsl:for-each>");
 		xslStyle.println("</table>");
-		
-		//The 3rd table is not really necessary
-		
-/*		xslStyle.println("<h2>Listing of all Tag Errors</h2>");
 
-		xslStyle.println("<table border =\"1\">");
-		xslStyle.println("<tr class=\"captiontan\">");
+		// The 3rd table is not really necessary
 
-		xslStyle.println("<th>Error Number</th>");
-		xslStyle.println("<th>Tag Information</th>");
+		/*
+		 * xslStyle.println("<h2>Listing of all Tag Errors</h2>");
+		 * 
+		 * xslStyle.println("<table border =\"1\">");
+		 * xslStyle.println("<tr class=\"captiontan\">");
+		 * 
+		 * xslStyle.println("<th>Error Number</th>");
+		 * xslStyle.println("<th>Tag Information</th>");
+		 * 
+		 * xslStyle.println("</tr>");
+		 * xslStyle.println("<xsl:for-each select=\"Jhove2Trim/Tags/Error\">");
+		 * xslStyle.println("<tr class=\"captiondred\">");
+		 * xslStyle.println("<td><xsl:value-of select=\"TagNumber\"/></td>");
+		 * xslStyle
+		 * .println("<td><xsl:value-of select=\"TagInformation\"/></td>");
+		 * xslStyle.println("</tr>"); xslStyle.println("</xsl:for-each>");
+		 * xslStyle.println("</table>");
+		 */
 
-		xslStyle.println("</tr>");
-		xslStyle.println("<xsl:for-each select=\"Jhove2Trim/Tags/Error\">");
-		xslStyle.println("<tr class=\"captiondred\">");
-		xslStyle.println("<td><xsl:value-of select=\"TagNumber\"/></td>");
-		xslStyle.println("<td><xsl:value-of select=\"TagInformation\"/></td>");
-		xslStyle.println("</tr>");
-		xslStyle.println("</xsl:for-each>");
-		xslStyle.println("</table>");*/
-		
 		xslStyle.println("</body>");
 		xslStyle.println("</html>");
 		xslStyle.println("</xsl:template>");
@@ -501,6 +506,97 @@ public class XslStyleSheets {
 		xslStyle.println("</xsl:template>");
 		xslStyle.println("</xsl:stylesheet>");
 
+		xslStyle.close();
+
+	}
+
+	public static void JhoveObjectsCustomizedXsl() throws IOException {
+
+		PrintWriter xslStyle = new PrintWriter(new FileWriter(starterDialogs.JhoveGuiStarterDialogObjects.jhoveExaminationFolder + "//" + "JhoveCustomized.xsl"));
+
+		xslStyle.println("<?xml version=\"1.0\"?>");
+		xslStyle.println("<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">");
+		xslStyle.println("<xsl:template match=\"/\">");
+		xslStyle.println("<html>");
+		xslStyle.println("<head>");
+		xslStyle.println("<style>");
+		xslStyle.println("tr.captiondred {background-color: #FF0000}");
+		xslStyle.println("tr.captionred {background-color: #CD5C5C}");
+		xslStyle.println("tr.captiongreen {background-color: #006400}");
+		xslStyle.println("tr.captiontan {background-color: #FFDEAD}");
+		xslStyle.println("</style>");
+		xslStyle.println("</head>");
+
+		xslStyle.println("<body>");
+
+		xslStyle.println("<h2>Jhove Validation Findings</h2>");
+
+		// xslStyle.println("<h1>PDF files examined by JHOVE</h1>");
+		xslStyle.println("<table border =\"1\">");
+		xslStyle.println("<tr class=\"captiontan\">");
+		// xslStyle.println("<h4>JHOVE Examination per File</h4>");
+
+		xslStyle.println("<th>FileName</th>");
+		xslStyle.println("<th>Extension</th>");
+		// xslStyle.println("<th>Creation Software</th>");
+		xslStyle.println("<th>Jhove Module</th>");
+		xslStyle.println("<th>Status</th>");
+		// xslStyle.println("<th>JhoveMessages</th>");
+		// xslStyle.println("<th>Message1</th>");
+		// xslStyle.println("<th>Message2</th>");
+		// xslStyle.println("<th>Message3</th>");
+		xslStyle.println("</tr>");
+		xslStyle.println("<xsl:for-each select=\"JhoveFindingsSummary/File\">");
+		xslStyle.println("<xsl:sort select=\"Status\" />");
+		xslStyle.println("<xsl:if test=\"Status[contains(text(),'Not')]\">");
+		xslStyle.println("<tr class=\"captiondred\">");
+		xslStyle.println("<td><i><xsl:value-of select=\"FileName\"/></i></td>");
+		// xslStyle.println("<td><xsl:value-of select=\"CreationYear\"/></td>");
+		// xslStyle.println("<td><xsl:value-of select=\"CreationSoftware\"/></td>");
+		xslStyle.println("<td><xsl:value-of select=\"FileExtension\"/></td>");
+		xslStyle.println("<td><xsl:value-of select=\"Module\"/></td>");
+		xslStyle.println("<td><xsl:value-of select=\"Status\"/></td>");
+		// xslStyle.println("<td><xsl:value-of select=\"JhoveMessages\"/></td>");
+		// xslStyle.println("<td><xsl:value-of select=\"Message1\"/></td>");
+		// xslStyle.println("<td><xsl:value-of select=\"Message2\"/></td>");
+		// xslStyle.println("<td><xsl:value-of select=\"Message3\"/></td>");
+		xslStyle.println("</tr>");
+		xslStyle.println("</xsl:if>	");
+		xslStyle.println("<xsl:if test=\"Status[contains(text(),'not')]\">");
+		xslStyle.println("<tr class=\"captionred\">");
+		xslStyle.println("<td><i><xsl:value-of select=\"FileName\" /></i></td>");
+		// xslStyle.println("<td><xsl:value-of select=\"CreationYear\"/></td>");
+		// xslStyle.println("<td><xsl:value-of select=\"CreationSoftware\"/></td>");
+		xslStyle.println("<td><xsl:value-of select=\"FileExtension\"/></td>");
+		xslStyle.println("<td><xsl:value-of select=\"Module\"/></td>");
+		xslStyle.println("<td><xsl:value-of select=\"Status\" /></td>");
+		// xslStyle.println("<td><xsl:value-of select=\"JhoveMessages\" /></td>");
+		// xslStyle.println("<td><xsl:value-of select=\"Message1\" /></td>");
+		// xslStyle.println("<td><xsl:value-of select=\"Message2\" /></td>");
+		// xslStyle.println("<td><xsl:value-of select=\"Message3\" /></td>");
+		xslStyle.println("</tr>");
+		xslStyle.println("</xsl:if>		");
+		xslStyle.println("<xsl:if test=\"Status[contains(text(),'and')]\">");
+		xslStyle.println("<tr class=\"captiongreen\">");
+		xslStyle.println("<td><i><xsl:value-of select=\"FileName\" /></i></td>");
+		// xslStyle.println("<td><xsl:value-of select=\"CreationYear\"/></td>");
+		// xslStyle.println("<td><xsl:value-of select=\"CreationSoftware\"/></td>");
+		xslStyle.println("<td><xsl:value-of select=\"FileExtension\"/></td>");
+		xslStyle.println("<td><xsl:value-of select=\"Module\"/></td>");
+		xslStyle.println("<td><xsl:value-of select=\"Status\" /></td>");
+		// xslStyle.println("<td><xsl:value-of select=\"JhoveMessages\" /></td>");
+		// xslStyle.println("<td><xsl:value-of select=\"Message1\" /></td>");
+		// xslStyle.println("<td><xsl:value-of select=\"Message2\" /></td>");
+		// xslStyle.println("<td><xsl:value-of select=\"Message3\" /></td>");
+		xslStyle.println("</tr>");
+		xslStyle.println("</xsl:if>	");
+		xslStyle.println("</xsl:for-each>");
+		xslStyle.println("</table>");
+
+		xslStyle.println("</body>");
+		xslStyle.println("</html>");
+		xslStyle.println("</xsl:template>");
+		xslStyle.println("</xsl:stylesheet>");
 		xslStyle.close();
 
 	}

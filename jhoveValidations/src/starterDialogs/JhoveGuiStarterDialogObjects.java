@@ -52,7 +52,7 @@ public class JhoveGuiStarterDialogObjects {
 			xmlsummary.println("<?" + xmlVersion + " " + xmlEncoding + "?>");
 			xmlsummary.println(xmlxslStyleSheet);
 			xmlsummary.println("<JhoveFindingsSummary>");
-			// outputs.XslStyleSheets.JhoveCustomizedXsl(); // neues Stylesheet machen
+			outputs.XslStyleSheets.JhoveObjectsCustomizedXsl(); 
 	
 
 			ArrayList<String> errormessages = new ArrayList<String>();
@@ -60,9 +60,7 @@ public class JhoveGuiStarterDialogObjects {
 			// TODO: neue arraylist aus jhovefileobjekten
 
 			// To handle one file after the other
-			for (int i = 0; i < files.size(); i++) {
-			
-				
+			for (int i = 0; i < files.size(); i++) {							
 
 				// the outputfiles files should not be examined
 				if ((!files.get(i).toString().contains("JhoveExamination")) && (!files.get(i).toString().contains("JhoveCustomized")) && (!files.get(i).toString().contains("JhovetemporaryFile"))) {
@@ -116,9 +114,9 @@ public class JhoveGuiStarterDialogObjects {
 				
 				xmlsummary.println("<File>");
 				xmlsummary.println("<FileName>" + findings.get(l).fileName + "</FileName>");
-				xmlsummary.println("<FileExtension>" + findings.get(l).extension + "</FileFileExtension>");
-				xmlsummary.println("<ValidityStatus>" + findings.get(l).status + "</ValidityStatus>");
-				xmlsummary.println("<Modul>" + findings.get(l).jhoveModul + "</Modul>");
+				xmlsummary.println("<FileExtension>" + findings.get(l).extension + "</FileExtension>");
+				xmlsummary.println("<Status>" + findings.get(l).status + "</Status>");
+				xmlsummary.println("<Module>" + findings.get(l).jhoveModul + "</Module>");
 				
 				xmlsummary.println("</File>");
 			}

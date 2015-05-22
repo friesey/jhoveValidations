@@ -52,10 +52,8 @@ public class JhoveGuiStarterDialogObjects {
 			xmlsummary.println("<?" + xmlVersion + " " + xmlEncoding + "?>");
 			xmlsummary.println(xmlxslStyleSheet);
 			xmlsummary.println("<JhoveFindingsSummary>");
-
-			// outputs.XslStyleSheets.JhoveCustomizedXsl(); // pruefen ob
-			// anderes
-			// xslt noetig
+			// outputs.XslStyleSheets.JhoveCustomizedXsl(); // neues Stylesheet machen
+	
 
 			ArrayList<String> errormessages = new ArrayList<String>();
 
@@ -63,6 +61,8 @@ public class JhoveGuiStarterDialogObjects {
 
 			// To handle one file after the other
 			for (int i = 0; i < files.size(); i++) {
+			
+				
 
 				// the outputfiles files should not be examined
 				if ((!files.get(i).toString().contains("JhoveExamination")) && (!files.get(i).toString().contains("JhoveCustomized")) && (!files.get(i).toString().contains("JhovetemporaryFile"))) {
@@ -74,9 +74,6 @@ public class JhoveGuiStarterDialogObjects {
 					temp.extension = temp.getExtension(temp.path);
 					// TODO: Falls Droid eines Tages einbettbar ist,
 					// Dateiformatidentifikation via DROID durchfuehren
-
-					System.out.println(files.get(i).toString());
-					System.out.println(temp.extension);
 
 					ObjectValidation.jhoveValidation(files.get(i));
 
@@ -92,10 +89,10 @@ public class JhoveGuiStarterDialogObjects {
 							Element eElement = (Element) nNode;
 
 							temp.status = eElement.getElementsByTagName("status").item(0).getTextContent();
-							System.out.println("Innerhalb der Schleife:" + temp.status);
+					
 
 							temp.jhoveModul = eElement.getElementsByTagName("reportingModule").item(0).getTextContent();
-							System.out.println("Innerhalb der Schleife:" + temp.jhoveModul);
+					
 
 						}
 					}
@@ -109,14 +106,25 @@ public class JhoveGuiStarterDialogObjects {
 
 			}
 
-			xmlsummary.println("</JhoveFindingsSummary>");
-			xmlsummary.close();
+	
 
 			for (int l = 0; l < findings.size(); l++) {
 				System.out.println("File Name: " + findings.get(l).fileName);
 				System.out.println("File extension: " + findings.get(l).extension);
 				System.out.println("File status: " + findings.get(l).status);
+				System.out.println("Reporting Module: " + findings.get(l).jhoveModul);
+				
+				xmlsummary.println("<File>");
+				xmlsummary.println("<FileName>" + findings.get(l).fileName + "</FileName>");
+				xmlsummary.println("<FileExtension>" + findings.get(l).extension + "</FileFileExtension>");
+				xmlsummary.println("<ValidityStatus>" + findings.get(l).status + "</ValidityStatus>");
+				xmlsummary.println("<Modul>" + findings.get(l).jhoveModul + "</Modul>");
+				
+				xmlsummary.println("</File>");
 			}
+			
+			xmlsummary.println("</JhoveFindingsSummary>");
+			xmlsummary.close();
 
 		}
 	}
